@@ -1,0 +1,528 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RG Font Converter -- हिंदी फॉन्ट कन्वर्टर</title>
+  <meta name="description" content="Devlys / Kruti Dev से Mangal Unicode में बेहतरीन हिंदी फॉन्ट कन्वर्टर। टेबल सेफ, ऑटो डिटेक्ट, पूर्ण एडिटिंग। ऑफलाइन काम करे।">
+  <meta name="theme-color" content="#0d0e18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="RG Font">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiM2YzYzZmYiLz48dGV4dCB4PSIxMiIgeT0iNDYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZmZmIj5SRzwvdGV4dD48L3N2Zz4=">
+  <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIlJHIEZvbnQgQ29udmVydGVyIiwKICAic2hvcnRfbmFtZSI6ICJSRyBGb250IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwNzA4MGYiLAogICJ0aGVtZV9jb2xvciI6ICIjNmM2M2ZmIiwKICAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2dxYVcxaFoyVnpQU0lnYVcxaFoyVnpJajRLSUNBOGNHRjBaU0JtYVd4c1BTSWlhVzFoWjJVaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM0poYzJnaUlHWnBiR3c5SW1wMGJYQnZiaUlnWm5KdmJTSmhjM05sZEdsdmJpSXZQZ284TDNOMlp6ND0iLCAic2l6ZXMiOiAiNjR4NjQiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiB9XX0=">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06070d;
+      --surface: #0d0e18;
+      --surface2: #131520;
+      --surface3: #1a1c2b;
+      --border: #1e2035;
+      --border2: #2a2d45;
+      --accent: #6c63ff;
+      --accent2: #a78bfa;
+      --gold: #f59e0b;
+      --saffron: #ff7043;
+      --text: #e4e6f2;
+      --text2: #989bb5;
+      --text3: #5e6180;
+      --success: #34d399;
+      --error: #f87171;
+      --glow-accent: rgba(108,99,255,0.25);
+      --radius: 12px;
+      --transition: 0.2s ease;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .bg-layer { position:fixed; inset:0; pointer-events:none; z-index:0; background: radial-gradient(ellipse 70% 60% at 10% 10%, rgba(108,99,255,0.07) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 90% 80%, rgba(245,158,11,0.05) 0%, transparent 60%); }
+    .app { position:relative; z-index:1; display:flex; flex-direction:column; min-height:100vh; }
+
+    /* Header */
+    header { padding:0 24px; height:60px; display:flex; align-items:center; justify-content:space-between; background:rgba(13,14,24,0.88); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:200; }
+    .logo { display:flex; align-items:center; gap:12px; }
+    .logo-mark { width:36px; height:36px; background:linear-gradient(135deg, var(--accent), #8b5cf6 40%, var(--saffron)); border-radius:10px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:16px; color:#fff; box-shadow:0 0 20px var(--glow-accent); }
+    .logo-name { font-size:16px; font-weight:700; color:var(--text); }
+    .logo-name em { color:var(--accent2); font-style:normal; }
+    .header-badges { display:flex; gap:6px; }
+    .badge { padding:4px 10px; border-radius:20px; font-size:10px; font-weight:600; border:1px solid; white-space:nowrap; }
+    .badge-accent { background:rgba(108,99,255,0.1); border-color:rgba(108,99,255,0.3); color:var(--accent2); }
+    .badge-gold { background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.3); color:var(--gold); }
+    .badge-share { background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.3); color:var(--success); cursor:pointer; display:none; }
+
+    /* Status Bar */
+    .status-bar { padding:0 24px; height:32px; display:flex; align-items:center; gap:12px; background:var(--surface); border-bottom:1px solid var(--border); font-size:11px; color:var(--text3); font-family:'JetBrains Mono', monospace; overflow-x:auto; }
+    .status-dot { width:6px; height:6px; border-radius:50%; background:var(--text3); flex-shrink:0; }
+    .status-dot.active { background:var(--success); box-shadow:0 0 6px var(--success); }
+    .status-dot.warn { background:var(--gold); }
+    .status-sep { width:1px; height:14px; background:var(--border); flex-shrink:0; }
+    #statusText { white-space:nowrap; }
+
+    /* Main */
+    .main { flex:1; display:flex; flex-direction:column; padding:16px 20px; gap:14px; max-width:1600px; margin:0 auto; width:100%; }
+    .upload-zone { border:2px dashed var(--border2); border-radius:var(--radius); padding:24px 32px; text-align:center; cursor:pointer; transition:all 0.3s; background:var(--surface); position:relative; }
+    .upload-zone:hover, .upload-zone.drag-over { border-color:var(--accent); box-shadow:0 0 30px var(--glow-accent); }
+    .upload-zone input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; }
+    .upload-icon { font-size:32px; margin-bottom:8px; }
+    .upload-title { font-size:16px; font-weight:700; margin-bottom:4px; }
+    .upload-sub { font-size:12px; color:var(--text3); margin-bottom:10px; }
+    .format-tags { display:flex; justify-content:center; gap:6px; }
+    .fmt { padding:2px 8px; border-radius:4px; font-size:10px; font-family:'JetBrains Mono', monospace; background:var(--surface2); border:1px solid var(--border2); color:var(--text2); }
+
+    /* Toolbar */
+    .toolbar { display:flex; gap:6px; align-items:center; flex-wrap:wrap; padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); }
+    .btn { padding:5px 10px; border-radius:6px; border:1px solid var(--border2); background:var(--surface2); color:var(--text); font-size:11px; cursor:pointer; display:inline-flex; align-items:center; gap:4px; transition:all var(--transition); white-space:nowrap; font-family:inherit; }
+    .btn:hover { background:var(--surface3); border-color:var(--accent); color:var(--accent2); }
+    .btn.active { background:rgba(108,99,255,0.15); border-color:var(--accent); color:var(--accent2); }
+    .btn.primary { background:var(--accent); color:#fff; font-weight:600; border-color:var(--accent); }
+    .btn.success { background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.4); color:var(--success); }
+    .btn:disabled { opacity:0.35; pointer-events:none; cursor:not-allowed; }
+    .tb-sep { width:1px; height:20px; background:var(--border); margin:0 4px; flex-shrink:0; }
+    select.btn { padding-right:24px; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237c82a8' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 8px center; appearance:none; }
+
+    /* Editor */
+    .editor-grid { flex:1; display:grid; grid-template-columns:1fr 1fr; gap:14px; min-height:450px; }
+    .editor-grid.single { grid-template-columns:1fr; }
+    .editor-grid.single #inputPane { display:none; }
+    .pane { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+    .pane-head { padding:8px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; background:var(--surface2); }
+    .pane-title { display:flex; align-items:center; gap:6px; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--text2); letter-spacing:1px; }
+    .pane-dot { width:7px; height:7px; border-radius:50%; }
+    .pane-dot.orange { background:var(--saffron); box-shadow:0 0 6px rgba(255,112,67,0.6); }
+    .pane-dot.green { background:var(--success); box-shadow:0 0 6px rgba(52,211,153,0.6); }
+    .editor-body { flex:1; padding:16px; overflow:auto; outline:none; font-size:16px; line-height:1.9; color:var(--text); caret-color:var(--accent2); white-space:pre-wrap; word-break:break-word; background:transparent; }
+    .editor-body:empty::before { content:attr(data-placeholder); color:var(--text3); font-style:italic; }
+    .word-bar { padding:4px 12px; border-top:1px solid var(--border); display:flex; gap:12px; font-size:10px; color:var(--text3); font-family:'JetBrains Mono', monospace; background:var(--surface2); }
+
+    /* Loading */
+    .loading { position:fixed; inset:0; background:rgba(6,7,13,0.9); display:flex; align-items:center; justify-content:center; z-index:500; opacity:0; pointer-events:none; transition:opacity 0.3s; }
+    .loading.show { opacity:1; pointer-events:all; }
+    .spinner { width:40px; height:40px; border:3px solid var(--border2); border-top-color:var(--accent); border-radius:50%; animation:spin 0.8s linear infinite; margin-bottom:12px; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Toast */
+    .toast-container { position:fixed; top:70px; right:20px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+    .toast { padding:8px 14px; border-radius:8px; border:1px solid; font-size:12px; font-weight:600; background:rgba(15,16,24,0.92); backdrop-filter:blur(12px); animation:slideIn 0.3s ease; max-width:300px; }
+    .toast.success { border-color:rgba(52,211,153,0.4); color:var(--success); }
+    .toast.error { border-color:rgba(248,113,113,0.4); color:var(--error); }
+    .toast.info { border-color:rgba(108,99,255,0.4); color:var(--accent2); }
+    @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+
+    footer { padding:8px 20px; border-top:1px solid var(--border); background:var(--surface); font-size:10px; color:var(--text3); text-align:center; }
+    ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-thumb { background:var(--border2); border-radius:3px; }
+  </style>
+</head>
+<body>
+<div class="bg-layer"></div>
+<div class="toast-container" id="toastContainer"></div>
+<div class="loading" id="loadingOverlay"><div style="text-align:center"><div class="spinner"></div><div style="color:var(--text2)">प्रोसेस हो रहा है...</div></div></div>
+
+<div class="app">
+  <header>
+    <div class="logo"><div class="logo-mark">RG</div><div class="logo-name"><em>RG</em> Font Converter</div></div>
+    <div class="header-badges">
+      <span class="badge badge-accent">✦ Auto Convert</span>
+      <span class="badge badge-gold">⬡ Table Safe</span>
+      <span class="badge badge-share" id="shareBadge" onclick="shareContent()">↗ Share</span>
+    </div>
+  </header>
+
+  <div class="status-bar">
+    <div class="status-dot active" id="engineDot"></div>
+    <span id="statusText">तैयार -- फ़ाइल खोलें या टेक्स्ट पेस्ट करें</span>
+    <div class="status-sep"></div>
+    <span id="fileInfo">कोई फ़ाइल नहीं</span>
+    <div class="status-sep"></div>
+    <span id="charCount">0 अक्षर</span>
+    <div class="status-sep"></div>
+    <span id="fontDetected">--</span>
+  </div>
+
+  <div class="main">
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" id="fileInput" accept=".txt,.htm,.html,.rtf,.docx,.doc" multiple>
+      <div class="upload-icon">📂</div>
+      <div class="upload-title">फ़ाइल यहाँ खींचें या क्लिक करें</div>
+      <div class="upload-sub">Devlys / Kruti Dev → Mangal Unicode ऑटो-कन्वर्ट</div>
+      <div class="format-tags"><span class="fmt">.txt</span><span class="fmt">.html</span><span class="fmt">.docx</span><span class="fmt">Paste</span></div>
+    </div>
+
+    <div class="toolbar">
+      <button class="btn primary" onclick="document.getElementById('fileInput').click()">📂 खोलें</button>
+      <button class="btn" onclick="convertNow()" id="convertBtn" disabled>⚡ कन्वर्ट</button>
+      <span class="tb-sep"></span>
+      <button class="btn" onclick="execFmt('bold')"><b>B</b></button>
+      <button class="btn" onclick="execFmt('italic')"><i>I</i></button>
+      <button class="btn" onclick="execFmt('underline')"><u>U</u></button>
+      <span class="tb-sep"></span>
+      <select class="btn" id="sourceFontSelect"><option value="auto">ऑटो डिटेक्ट</option><option value="devlys">Devlys</option><option value="kruti">Kruti Dev</option></select>
+      <span class="tb-sep"></span>
+      <button class="btn" id="splitViewBtn" onclick="toggleView('split')">⊞ स्प्लिट</button>
+      <button class="btn" id="singleViewBtn" onclick="toggleView('single')">⊟ सिंगल</button>
+      <span class="tb-sep"></span>
+      <button class="btn success" onclick="downloadTxt()" id="dlTxt" disabled>↓ .txt</button>
+      <button class="btn success" onclick="downloadHtml()" id="dlHtml" disabled>↓ .html</button>
+      <button class="btn" onclick="openInNewTab()" id="viewFullBtn" disabled>🔍 खोलें</button>
+      <button class="btn" onclick="window.print()">🖨 प्रिंट</button>
+      <span class="tb-sep"></span>
+      <button class="btn" onclick="clearAll()">✕ साफ़</button>
+    </div>
+
+    <div class="editor-grid" id="editorGrid">
+      <div class="pane" id="inputPane">
+        <div class="pane-head"><div class="pane-title"><span class="pane-dot orange"></span> मूल टेक्स्ट (Devlys/Kruti)</div></div>
+        <div class="editor-body" id="inputEditor" contenteditable="true" data-placeholder="यहाँ टेक्स्ट पेस्ट करें या फ़ाइल खोलें..." oninput="updateInputStats()"></div>
+        <div class="word-bar"><span>अक्षर: <span id="inputChars">0</span></span> <span>शब्द: <span id="inputWords">0</span></span></div>
+      </div>
+      <div class="pane" id="outputPane">
+        <div class="pane-head"><div class="pane-title"><span class="pane-dot green"></span> Mangal Unicode (संपादन योग्य)</div></div>
+        <div class="editor-body" id="outputEditor" contenteditable="true" data-placeholder="कन्वर्टेड टेक्स्ट यहाँ आएगा..." oninput="updateOutputStats()"></div>
+        <div class="word-bar"><span>अक्षर: <span id="outputChars">0</span></span> <span>शब्द: <span id="outputWords">0</span></span> <span>टेबल: <span id="outputTables">0</span></span></div>
+      </div>
+    </div>
+  </div>
+  <footer>⚡ RG Font Converter -- ऑफलाइन PWA • Devlys/Kruti → Mangal Unicode • टेबल सेफ • शेयर करें</footer>
+</div>
+
+<script>
+(function() {
+  // ═══════════ FONT MAPPING (longest match first) ═══════════
+  const MAP = [
+    ['vkS','औ'],['vks','ओ'],[';kS','ौ'],['bZ','ई'],['b','इ'],['m','उ'],['Å','ऊ'],
+    ['vk','आ'],['v','अ'],['k','ा'],['f','ि'],['h','ी'],['q','ु'],['w','ू'],
+    ['s','े'],['S','ै'],[';','ो'],['+','ौ'],['a','ं'],['¡','ं'],['%','ः'],
+    ['d','क'],['[','ख'],['x','ग'],['?','घ'],['p','च'],['N','छ'],['t','ज'],
+    ['>','झ'],['V','ट'],['B','ठ'],['M','ड'],['<','ढ'],['r','त'],['F','थ'],
+    ['n','द'],['u','न'],['i','प'],['Q','फ'],['c','ब'],['H','भ'],['e','म'],
+    ['y','ल'],['o','व'],['j','र'],['l','स'],['g','ह'],['\'','श'],['"','श'],
+    ['&','ज्ञ'],['=','त्र'],['$','क्ष'],['}','ड़'],['~','ढ़'],['|','।'],
+    ['0','०'],['1','१'],['2','२'],['3','३'],['4','४'],['5','५'],['6','६'],['7','७'],['8','८'],['9','९']
+  ].sort((a,b)=>b[0].length-a[0].length);
+
+  function convertText(text) {
+    let res=''; let i=0;
+    while(i<text.length) {
+      let found=false;
+      for(let [k,v] of MAP) if(text.startsWith(k,i)) { res+=v; i+=k.length; found=true; break; }
+      if(!found) res+=text[i++];
+    }
+    return res;
+  }
+
+  function detectFont(text) {
+    const dev = text.match(/[\u0900-\u097F]/g)?.length || 0;
+    if(dev > text.length*0.3) return 'unicode';
+    if(/[dkf[qwhslmnprtbgxovjUNMBHF;+=><~'"]/i.test(text) && dev<text.length*0.1) return /[³´ñ]/.test(text)?'kruti':'devlys';
+    return dev?'unicode':'unknown';
+  }
+
+  function convertHtmlAware(html, hint) {
+    return html.replace(/(<[^>]+>)|([^<]+)/g, (m,tag,text)=>{
+      if(tag) return tag;
+      if(text && text.trim()) { let f = hint==='auto'?detectFont(text):hint; return f==='unicode'?text:convertText(text); }
+      return text||'';
+    });
+  }
+
+  function plainTableToHtml(text) {
+    let lines=text.split('\n'), out='', rows=[], inTable=false;
+    for(let l of lines) {
+      if(l.includes('|') && l.trim().startsWith('|')) { if(!inTable) { inTable=true; rows=[]; } if(!/^[\s|\-:+]+$/.test(l)) rows.push(l); }
+      else { if(inTable) { out+=rows.length?('<table>'+rows.map((r,i)=>{let c=r.split('|').filter(x=>x.trim()); return '<tr>'+c.map(s=>`<${i?'td':'th'}>${s.trim()}</${i?'td':'th'}>`).join('')+'</tr>'; }).join('')+'</table>\n'):''; rows=[]; inTable=false; } out+=l+'\n'; }
+    }
+    if(inTable && rows.length) out+=('<table>'+rows.map((r,i)=>{let c=r.split('|').filter(x=>x.trim()); return '<tr>'+c.map(s=>`<${i?'td':'th'}>${s.trim()}</${i?'td':'th'}>`).join('')+'</tr>'; }).join('')+'</table>');
+    return out;
+  }
+
+  let originalFileName = '';
+  let outputHistory = [];
+
+  // ── फ़ाइल पढ़ने का सुरक्षित फंक्शन (UTF-8 के साथ) ──
+  async function readTextFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error('फ़ाइल पढ़ने में विफल'));
+      // सभी फ़ाइलों को UTF-8 के रूप में पढ़ें (हिंदी टेक्स्ट के लिए ज़रूरी)
+      reader.readAsText(file, 'UTF-8');
+    });
+  }
+
+  // ── DOCX से टेक्स्ट निकालना ──
+  async function readDocxFile(file) {
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const textDecoder = new TextDecoder('utf-8');
+      const text = textDecoder.decode(arrayBuffer);
+      // XML से <w:t> टैग्स के अंदर का टेक्स्ट निकालें
+      const matches = text.match(/<w:t[^>]*>([^<]*)<\/w:t>/g);
+      if (matches && matches.length > 0) {
+        return matches.map(m => m.replace(/<[^>]+>/g, '')).join(' ');
+      } else {
+        throw new Error('DOCX से कोई टेक्स्ट नहीं मिला');
+      }
+    } catch (e) {
+      throw new Error('DOCX फ़ाइल पढ़ने में समस्या: ' + e.message);
+    }
+  }
+
+  // ── मुख्य कन्वर्ट प्रक्रिया ──
+  async function performConvert(rawText) {
+    showLoading(true);
+    setStatus('कन्वर्ट हो रहा है...', 'warn');
+    let hint = document.getElementById('sourceFontSelect').value;
+    let detected = detectFont(rawText);
+    document.getElementById('fontDetected').textContent = detected==='unicode'?'✓ Unicode':detected==='devlys'?'🔤 Devlys':detected==='kruti'?'🔤 Kruti Dev':'--';
+    let withTables = plainTableToHtml(rawText);
+    let converted = convertHtmlAware(withTables, hint==='auto' ? detected : hint);
+    let outEl = document.getElementById('outputEditor');
+    outputHistory.push(outEl.innerHTML);
+    outEl.innerHTML = converted.replace(/\n/g,'<br>');
+    updateOutputStats();
+    document.getElementById('convertBtn').disabled = false;
+    document.getElementById('dlTxt').disabled = false;
+    document.getElementById('dlHtml').disabled = false;
+    document.getElementById('viewFullBtn').disabled = false;
+    document.getElementById('shareBadge').style.display = 'inline';
+    setStatus('✓ कन्वर्ट पूरा', 'active');
+    showLoading(false);
+  }
+
+  // ── फ़ाइलों को प्रोसेस करना (ड्रैग या सेलेक्ट से) ──
+  async function processFiles(files) {
+    showLoading(true);
+    let allText = '';
+    let errorMessages = [];
+
+    for (let file of files) {
+      try {
+        setStatus('पढ़ रहे: ' + file.name);
+        originalFileName = file.name.replace(/\.[^.]+$/, '');
+        let text = '';
+
+        if (file.name.toLowerCase().endsWith('.docx') || file.name.toLowerCase().endsWith('.doc')) {
+          text = await readDocxFile(file);
+        } else {
+          text = await readTextFile(file);
+        }
+
+        if (text && text.trim().length > 0) {
+          allText += (allText ? '\n\n---\n\n' : '') + text;
+          document.getElementById('fileInfo').textContent = file.name + ' (' + formatSize(file.size) + ')';
+        } else {
+          errorMessages.push(file.name + ': कोई कंटेंट नहीं मिला');
+        }
+      } catch (err) {
+        errorMessages.push(file.name + ': ' + err.message);
+      }
+    }
+
+    if (allText.trim().length > 0) {
+      document.getElementById('inputEditor').innerHTML = allText.replace(/\n/g, '<br>');
+      updateInputStats();
+      await performConvert(allText);
+      if (errorMessages.length > 0) {
+        showToast('कुछ फ़ाइलें नहीं पढ़ी जा सकीं: ' + errorMessages.join('; '), 'error');
+      }
+    } else {
+      showToast('कोई पठनीय कंटेंट नहीं मिला। कृपया .txt / .html / .docx फ़ाइलें ही चुनें।', 'error');
+    }
+    showLoading(false);
+  }
+
+  // ── इवेंट लिसनर्स ──
+  const fileInput = document.getElementById('fileInput');
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      processFiles(e.target.files);
+      e.target.value = ''; // ताकि एक ही फ़ाइल दोबारा चुनी जा सके
+    }
+  });
+
+  const uploadZone = document.getElementById('uploadZone');
+  ['dragenter', 'dragover'].forEach(eventName => {
+    uploadZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadZone.classList.add('drag-over');
+    });
+  });
+  ['dragleave', 'drop'].forEach(eventName => {
+    uploadZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadZone.classList.remove('drag-over');
+    });
+  });
+  uploadZone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    if (dt.files && dt.files.length > 0) {
+      processFiles(dt.files);
+    }
+  });
+
+  // पेस्ट ईवेंट (सीधे टेक्स्ट पेस्ट करने पर ऑटो-कन्वर्ट)
+  document.getElementById('inputEditor').addEventListener('paste', () => {
+    setTimeout(() => {
+      const text = document.getElementById('inputEditor').innerText;
+      if (text && text.trim()) {
+        performConvert(text);
+      }
+    }, 100);
+  });
+
+  // सोर्स सेलेक्ट बदलने पर अगर इनपुट में टेक्स्ट है तो री-कन्वर्ट करें
+  document.getElementById('sourceFontSelect').addEventListener('change', () => {
+    const text = document.getElementById('inputEditor').innerText;
+    if (text && text.trim()) {
+      performConvert(text);
+    }
+  });
+
+  // ── ग्लोबल फंक्शन्स (UI बटनों के लिए) ──
+  window.convertNow = () => {
+    const text = document.getElementById('inputEditor').innerText;
+    if (text && text.trim()) {
+      performConvert(text);
+    } else {
+      showToast('कन्वर्ट करने के लिए पहले टेक्स्ट डालें या फ़ाइल खोलें', 'info');
+    }
+  };
+  window.execFmt = (cmd) => {
+    document.getElementById('outputEditor').focus();
+    document.execCommand(cmd, false, null);
+  };
+  window.toggleView = (mode) => {
+    const grid = document.getElementById('editorGrid');
+    const splitBtn = document.getElementById('splitViewBtn');
+    const singleBtn = document.getElementById('singleViewBtn');
+    if (mode === 'single') {
+      grid.classList.add('single');
+      singleBtn.classList.add('active');
+      splitBtn.classList.remove('active');
+    } else {
+      grid.classList.remove('single');
+      splitBtn.classList.add('active');
+      singleBtn.classList.remove('active');
+    }
+  };
+  window.downloadTxt = () => {
+    const text = document.getElementById('outputEditor').innerText;
+    if (!text.trim()) {
+      showToast('डाउनलोड करने के लिए कोई कंटेंट नहीं', 'error');
+      return;
+    }
+    const blob = new Blob(['\uFEFF' + text], { type: 'text/plain;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (originalFileName || 'converted') + '_mangal.txt';
+    a.click();
+    showToast('✓ डाउनलोड शुरू', 'success');
+  };
+  window.downloadHtml = () => {
+    const content = document.getElementById('outputEditor').innerHTML;
+    if (!content.trim()) {
+      showToast('डाउनलोड करने के लिए कोई कंटेंट नहीं', 'error');
+      return;
+    }
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Mangal',sans-serif;font-size:16px;padding:20px;max-width:800px;margin:auto}</style></head><body>${content}</body></html>`;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = (originalFileName || 'converted') + '_mangal.html';
+    a.click();
+    showToast('✓ डाउनलोड शुरू', 'success');
+  };
+  window.openInNewTab = () => {
+    const content = document.getElementById('outputEditor').innerHTML;
+    if (!content.trim()) {
+      showToast('खोलने के लिए कोई कंटेंट नहीं', 'error');
+      return;
+    }
+    const w = window.open('', '_blank');
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Mangal',sans-serif;font-size:18px;padding:30px;max-width:900px;margin:auto}</style></head><body>${content}</body></html>`);
+    w.document.close();
+    showToast('✓ नए टैब में खुल गया', 'success');
+  };
+  window.shareContent = () => {
+    const text = document.getElementById('outputEditor').innerText;
+    if (!text.trim()) {
+      showToast('शेयर करने के लिए कंटेंट नहीं', 'error');
+      return;
+    }
+    if (navigator.share) {
+      navigator.share({ title: 'Mangal Unicode Text', text: text.slice(0, 2000) }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(text).then(() => showToast('कॉपी हो गया, शेयर करें', 'info'));
+    }
+  };
+  window.clearAll = () => {
+    document.getElementById('inputEditor').innerHTML = '';
+    document.getElementById('outputEditor').innerHTML = '';
+    document.getElementById('fileInfo').textContent = 'कोई फ़ाइल नहीं';
+    document.getElementById('fontDetected').textContent = '--';
+    updateInputStats();
+    updateOutputStats();
+    setStatus('तैयार', 'active');
+    showToast('साफ़ हो गया', 'info');
+  };
+
+  window.updateInputStats = updateInputStats;
+  window.updateOutputStats = updateOutputStats;
+
+  function updateInputStats() {
+    const t = document.getElementById('inputEditor').innerText || '';
+    document.getElementById('inputChars').textContent = t.length;
+    document.getElementById('inputWords').textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+    document.getElementById('charCount').textContent = t.length + ' अक्षर';
+  }
+  function updateOutputStats() {
+    const e = document.getElementById('outputEditor');
+    const t = e.innerText || '';
+    document.getElementById('outputChars').textContent = t.length;
+    document.getElementById('outputWords').textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+    document.getElementById('outputTables').textContent = e.querySelectorAll('table').length;
+  }
+  function showLoading(s) {
+    document.getElementById('loadingOverlay').classList.toggle('show', s);
+  }
+  function setStatus(msg, state) {
+    document.getElementById('statusText').textContent = msg;
+    const d = document.getElementById('engineDot');
+    d.className = 'status-dot ' + (state === 'warn' ? 'warn' : 'active');
+  }
+  function showToast(msg, type = 'info') {
+    const container = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast ' + type;
+    t.textContent = msg;
+    container.appendChild(t);
+    setTimeout(() => t.remove(), 3000);
+  }
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    else return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  // PWA Service Worker (inline registration)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(
+        `const CACHE='rgfc-v2';self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./'])));});self.addEventListener('fetch',e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));});`
+      )).catch(() => {});
+    });
+  }
+
+  setStatus('तैयार -- फ़ाइल खोलें या टेक्स्ट पेस्ट करें', 'active');
+})();
+</script>
+</body>
+</html>
