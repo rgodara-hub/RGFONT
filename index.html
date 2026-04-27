@@ -1,0 +1,398 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>RG Font Converter -- हिंदी फॉन्ट कन्वर्टर</title>
+  <meta name="description" content="Devlys / Kruti Dev से Mangal Unicode में बेहतरीन हिंदी फॉन्ट कन्वर्टर। टेबल सेफ, ऑटो डिटेक्ट, पूर्ण एडिटिंग।">
+  <meta name="theme-color" content="#0d0e18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="RG Font">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiM2YzYzZmYiLz48dGV4dCB4PSIxMiIgeT0iNDYiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjI4IiBmaWxsPSIjZmZmIj5SRzwvdGV4dD48L3N2Zz4=">
+  <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIlJHIEZvbnQgQ29udmVydGVyIiwKICAic2hvcnRfbmFtZSI6ICJSRyBGb250IiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwNzA4MGYiLAogICJ0aGVtZV9jb2xvciI6ICIjNmM2M2ZmIiwKICAiaWNvbnMiOiBbeyJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2dxYVcxaFoyVnpQU0lnYVcxaFoyVnpJajRLSUNBOGNHRjBaU0JtYVd4c1BTSWlhVzFoWjJVaUlIaHRiRzV6UFNKb2RIUndPaTh2ZDNkM0xuY3pMbTl5Wnk4eU1EQXdMM0poYzJnaUlHWnBiR3c5SW1wMGJYQnZiaUlnWm5KdmJTSmhjM05sZEdsdmJpSXZQZ284TDNOMlp6ND0iLCAic2l6ZXMiOiAiNjR4NjQiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiB9XX0=">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    :root {
+      --bg: #06070d;
+      --surface: #0d0e18;
+      --surface2: #131520;
+      --border: #1e2035;
+      --border2: #2a2d45;
+      --accent: #6c63ff;
+      --accent2: #a78bfa;
+      --gold: #f59e0b;
+      --saffron: #ff7043;
+      --text: #e4e6f2;
+      --text2: #989bb5;
+      --text3: #5e6180;
+      --success: #34d399;
+      --error: #f87171;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Noto Sans Devanagari', sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+    header { padding:0 20px; height:50px; display:flex; align-items:center; justify-content:space-between; background:rgba(13,14,24,0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:100; }
+    .logo { display:flex; align-items:center; gap:8px; }
+    .logo-mark { width:30px; height:30px; background:linear-gradient(135deg, var(--accent), var(--saffron)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:14px; color:#fff; }
+    .logo-name { font-size:14px; font-weight:700; } .logo-name em { color:var(--accent2); font-style:normal; }
+    .badge { padding:3px 8px; border-radius:12px; font-size:8px; font-weight:600; border:1px solid; }
+    .badge-accent { background:rgba(108,99,255,0.1); border-color:rgba(108,99,255,0.3); color:var(--accent2); }
+    .status { padding:0 20px; height:24px; display:flex; align-items:center; gap:8px; background:var(--surface); border-bottom:1px solid var(--border); font-size:9px; color:var(--text3); font-family:'JetBrains Mono',monospace; }
+    .status-dot { width:5px; height:5px; border-radius:50%; background:var(--text3); }
+    .status-dot.active { background:var(--success); box-shadow:0 0 5px var(--success); }
+    .main { flex:1; padding:10px; display:flex; flex-direction:column; gap:8px; max-width:1000px; margin:0 auto; width:100%; }
+    .upload-zone { border:2px dashed var(--border2); border-radius:12px; padding:14px; text-align:center; cursor:pointer; background:var(--surface); transition:all 0.3s; }
+    .upload-zone:hover { border-color:var(--accent); box-shadow:0 0 20px rgba(108,99,255,0.2); }
+    .toolbar { display:flex; gap:4px; flex-wrap:wrap; padding:6px; background:var(--surface); border:1px solid var(--border); border-radius:8px; }
+    .btn { padding:4px 9px; border-radius:5px; border:1px solid var(--border2); background:var(--surface2); color:var(--text); font-size:10px; cursor:pointer; display:inline-flex; align-items:center; gap:3px; transition:all 0.2s; }
+    .btn:hover { background:var(--surface3); border-color:var(--accent); color:var(--accent2); }
+    .btn.accent { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .btn.success { background:rgba(52,211,153,0.1); border-color:rgba(52,211,153,0.4); color:var(--success); }
+    .btn:disabled { opacity:0.3; pointer-events:none; }
+    .sep { width:1px; height:16px; background:var(--border); margin:0 2px; }
+    select.btn { padding-right:20px; background:var(--surface2) url(...); appearance:none; }
+    .editors { display:flex; flex-direction:column; gap:8px; flex:1; min-height:400px; }
+    .pane { background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow:hidden; display:flex; flex-direction:column; }
+    .pane-head { padding:5px 10px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--surface2); }
+    .pane-title { font-size:9px; font-weight:700; text-transform:uppercase; }
+    .pane-title.in { color:var(--saffron); }
+    .pane-title.out { color:var(--success); }
+    .editor-body { flex:1; padding:10px; overflow:auto; outline:none; font-size:15px; line-height:1.8; color:var(--text); white-space:pre-wrap; word-break:break-word; caret-color:var(--accent2); }
+    .editor-body:empty::before { content:attr(data-placeholder); color:var(--text3); font-style:italic; }
+    .word-bar { padding:2px 10px; border-top:1px solid var(--border); display:flex; gap:10px; font-size:9px; color:var(--text3); font-family:'JetBrains Mono',monospace; background:var(--surface2); }
+    .toast-container { position:fixed; top:60px; right:12px; z-index:999; }
+    .toast { padding:6px 12px; border-radius:6px; border:1px solid; font-size:10px; font-weight:600; background:rgba(15,16,24,0.9); backdrop-filter:blur(10px); margin-bottom:4px; animation:slide 0.3s; }
+    .toast.success { border-color:rgba(52,211,153,0.4); color:var(--success); }
+    .toast.error { border-color:rgba(248,113,113,0.4); color:var(--error); }
+    @keyframes slide { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+    footer { padding:6px; text-align:center; font-size:8px; color:var(--text3); border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+<div class="toast-container" id="toasts"></div>
+<div class="app">
+  <header>
+    <div class="logo"><div class="logo-mark">RG</div><div class="logo-name"><em>RG</em> Font Converter</div></div>
+    <span class="badge badge-accent">✦ Auto</span>
+  </header>
+  <div class="status">
+    <div class="status-dot active" id="dot"></div><span id="statusText">तैयार</span>
+    <span class="sep"></span><span id="fileInfo">--</span>
+    <span class="sep"></span><span id="charCount">0</span>
+    <span class="sep"></span><span id="fontDetected">--</span>
+  </div>
+  <div class="main">
+    <div class="upload-zone" id="uploadZone">
+      📂 <strong>फ़ाइल यहाँ खींचें या क्लिक करके चुनें</strong><br><small>Devlys / Kruti Dev → Mangal Unicode</small>
+      <input type="file" id="fileInput" accept=".txt,.htm,.html,.rtf,.docx,.doc" multiple style="display:none">
+    </div>
+    <div class="toolbar">
+      <button class="btn accent" id="openBtn">📂 खोलें</button>
+      <button class="btn" id="convertBtn" disabled>⚡ कन्वर्ट</button>
+      <span class="sep"></span>
+      <button class="btn" id="boldBtn">B</button>
+      <button class="btn" id="italicBtn"><i>I</i></button>
+      <button class="btn" id="underlineBtn"><u>U</u></button>
+      <span class="sep"></span>
+      <select class="btn" id="fontSelect"><option value="auto">ऑटो</option><option value="devlys">Devlys</option><option value="kruti">Kruti</option></select>
+      <span class="sep"></span>
+      <button class="btn success" id="dlTxt" disabled>↓ .txt</button>
+      <button class="btn success" id="dlHtml" disabled>↓ .html</button>
+      <button class="btn" id="viewBtn" disabled>🔍 खोलें</button>
+      <span class="sep"></span>
+      <button class="btn" id="clearBtn">✕ साफ़</button>
+    </div>
+    <div class="editors">
+      <div class="pane" id="outPane">
+        <div class="pane-head">
+          <span class="pane-title out">▸ Mangal Unicode आउटपुट</span>
+          <button class="btn success" id="copyBtn">📋 कॉपी</button>
+        </div>
+        <div class="editor-body" id="outEditor" contenteditable="true" data-placeholder="कन्वर्टेड टेक्स्ट यहाँ आएगा..."></div>
+        <div class="word-bar"><span>अक्षर: <span id="outChars">0</span></span><span>टेबल: <span id="outTables">0</span></span></div>
+      </div>
+      <div class="pane" id="inPane">
+        <div class="pane-head"><span class="pane-title in">▸ इनपुट (Devlys / Kruti Dev)</span></div>
+        <div class="editor-body" id="inEditor" contenteditable="true" data-placeholder="टेक्स्ट पेस्ट करें या फ़ाइल खोलें..."></div>
+        <div class="word-bar"><span>अक्षर: <span id="inChars">0</span></span></div>
+      </div>
+    </div>
+  </div>
+  <footer>RG Font Converter -- Devlys/Kruti → Mangal Unicode</footer>
+</div>
+
+<script>
+(function(){
+  // ── पूरी और सटीक फॉन्ट मैपिंग (Devlys/Kruti 010 → Unicode) ──
+  const MAP = [
+    // तीन अक्षर वाले संयोजन (पहले रखें ताकि सबसे लंबा मिलान पहले हो)
+    ['vkS','औ'],['vks','ओ'],[';kS','ौ'],['bZ','ई'],['b','इ'],['m','उ'],
+    ['Å','ऊ'],['vk','आ'],['v','अ'],['k','ा'],['f','ि'],['h','ी'],['q','ु'],
+    ['w','ू'],['s','े'],['S','ै'],[';','ो'],['+','ौ'],
+    // अनुस्वार, विसर्ग
+    ['a','ं'],['¡','ं'],['%','ः'],['Z','ॅ'],['/','्'],['~','्'],
+    // व्यंजन वर्ण
+    ['d','क'],['[','ख'],['x','ग'],['?','घ'],['³','ङ'],
+    ['p','च'],['N','छ'],['t','ज'],['>','झ'],['´','ञ'],
+    ['V','ट'],['B','ठ'],['M','ड'],['<','ढ'],['ñ','ण'],
+    ['r','त'],['F','थ'],['n','द'],['è','ध'],['u','न'],
+    ['i','प'],['Q','फ'],['c','ब'],['H','भ'],['e','म'],
+    ['y','ल'],['o','व'],[';','य'],['j','र'],['l','स'],['g','ह'],['G','ह'],
+    ['\'','श'],['"','श'],['&','ज्ञ'],['=','त्र'],['«','त्र'],['$','क्ष'],
+    ['}','ड़'],['~','ढ़'],['K','ज्ञ'],['D','क्'],['J','श्र'],
+    // विशेष चिह्न और संख्याएं
+    ['|','।'],['.','।'],
+    ['0','०'],['1','१'],['2','२'],['3','३'],['4','४'],
+    ['5','५'],['6','६'],['7','७'],['8','८'],['9','९'],
+    // अतिरिक्त कैरक्टर जो अब तक छूट रहे थे (Devlys/Kruti विस्तार)
+    ['E','ए'],['F','थ'],['A','ए'],['B','ऐ'],['W','ॉ'],['R','व'],
+    ['U','न'],['L','ल'],['O','ो'],['z','ँ'],['Z','ॅ'],
+    ['e','म'],['c','ब'],['H','भ'],['y','ल'],['o','व'],
+    ['k','ा'],['f','ि'],['h','ी'],['q','ु'],['w','ू'],
+    ['s','े'],['S','ै'],[';','ो'],['+','ौ'],
+    ['D','क्'],['K','ज्ञ'],['J','श्र'],['&','ज्ञ'],
+    ['=','त्र'],['$','क्ष'],['}','ड़'],['~','ढ़'],
+    ['\'','श'],['"','श'],['l','स'],['g','ह'],['G','ह'],
+    ['|','।'],['.','।'],
+    // ये वो कैरक्टर हैं जो आपके टेक्स्ट में नहीं बदल रहे थे
+    ['_','ऋ'],['¡','ं'],['%','ः'],['Z','ॅ'],['/','्'],
+    ['³','ङ'],['´','ञ'],['ñ','ण'],
+    ['è','ध'],['Å','ऊ'],['vk','आ'],['bZ','ई'],
+    ['vkS','औ'],['vks','ओ'],[';kS','ौ'],
+    ['AA','के'],['L','ल'],['W','व'],['Y','य'],['R','व'],
+    ['E','ए'],['A','ए'],['B','ऐ'],['O','ो'],['U','न'],
+    ['P','प'],['Q','फ'],['C','ब'],['H','भ'],['M','ड'],
+    ['T','ज'],['N','छ'],['S','ै'],['D','क्'],['K','ज्ञ'],
+    ['J','श्र'],['G','ह'],['F','थ'],['Z','ॅ'],['x','ग'],
+    ['?','घ'],['>','झ'],['<','ढ'],['V','ट'],['B','ठ'],
+    ['\'','श'],['"','श'],['&','ज्ञ'],['=','त्र'],['$','क्ष'],
+    ['}','ड़'],['~','ढ़'],['|','।'],['.','।']
+  ].sort((a,b)=>b[0].length-a[0].length);
+
+  function convertText(t) {
+    let r='',i=0;
+    while(i<t.length){
+      let f=false;
+      for(let [k,v] of MAP) if(t.startsWith(k,i)){ r+=v; i+=k.length; f=true; break; }
+      if(!f) r+=t[i++];
+    }
+    return r;
+  }
+
+  function detectFont(t) {
+    const d=(t.match(/[\u0900-\u097F]/g)||[]).length;
+    if(d>t.length*0.3) return 'unicode';
+    if(/[dkf[qwhslmnprtbgxovjUNMBHF;+=><~'"³´ñè&$]/i.test(t)&&d<t.length*0.1) return /[³´ñè]/.test(t)?'kruti':'devlys';
+    return d?'unicode':'unknown';
+  }
+
+  function convertHtmlAware(html,hint) {
+    return html.replace(/(<[^>]+>)|([^<]+)/g,(m,tag,text)=>{
+      if(tag) return tag;
+      if(text&&text.trim()){ let f=hint==='auto'?detectFont(text):hint; return f==='unicode'?text:convertText(text); }
+      return text||'';
+    });
+  }
+
+  function tableToHtml(t) {
+    let lines=t.split('\n'),out='',rows=[],inT=false;
+    for(let l of lines){
+      if(l.includes('|')&&l.trim().startsWith('|')){ if(!inT){inT=true;rows=[];} if(!/^[\s|\-:+]+$/.test(l)) rows.push(l); }
+      else{ if(inT){ out+=rows.length?('<table>'+rows.map((r,i)=>{let c=r.split('|').filter(x=>x.trim());return'<tr>'+c.map(s=>`<${i?'td':'th'}>${s.trim()}</${i?'td':'th'}>`).join('')+'</tr>';}).join('')+'</table>\n'):''; rows=[]; inT=false; } out+=l+'\n'; }
+    }
+    if(inT&&rows.length) out+=('<table>'+rows.map((r,i)=>{let c=r.split('|').filter(x=>x.trim());return'<tr>'+c.map(s=>`<${i?'td':'th'}>${s.trim()}</${i?'td':'th'}>`).join('')+'</tr>';}).join('')+'</table>');
+    return out;
+  }
+
+  let fname='', history=[];
+
+  async function readTextFile(file) {
+    const buf = await file.arrayBuffer();
+    const bytes = new Uint8Array(buf);
+    const utf8 = new TextDecoder('utf-8', {fatal:false}).decode(bytes);
+    const win = new TextDecoder('windows-1252', {fatal:false}).decode(bytes);
+    const countDev = s=> (s.match(/[dkf[qwhslmnprtbgxovjUNMBHF;+=><~'"³´ñè&$]/g)||[]).length;
+    return (countDev(win)>countDev(utf8)&&countDev(win)>10)?win:utf8;
+  }
+
+  async function readDocx(file) {
+    const zip = await JSZip.loadAsync(file);
+    const xml = await zip.file("word/document.xml")?.async("string");
+    if(!xml) throw new Error('document.xml नहीं मिला');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xml,"application/xml");
+    let text='';
+    for(let t of doc.getElementsByTagNameNS("*","t")) text+=t.textContent+' ';
+    if(!text.trim()) text = xml.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+    if(!text.trim()) throw new Error('कोई टेक्स्ट नहीं');
+    return text;
+  }
+
+  async function doConvert(raw) {
+    showLoading(true); setStatus('कन्वर्ट हो रहा...','warn');
+    const hint=fontSelect.value;
+    const detected=detectFont(raw);
+    fontDet.textContent=detected==='unicode'?'✓ Unicode':detected==='devlys'?'🔤 Devlys':detected==='kruti'?'🔤 Kruti Dev':'--';
+    const withT=tableToHtml(raw);
+    const conv=convertHtmlAware(withT, hint==='auto'?detected:hint);
+    history.push(outEditor.innerHTML);
+    outEditor.innerHTML=conv.replace(/\n/g,'<br>');
+    updateStats();
+    convertBtn.disabled=false;
+    dlTxt.disabled=false; dlHtml.disabled=false; viewBtn.disabled=false;
+    setStatus('✓ कन्वर्ट पूरा','active');
+    showLoading(false);
+  }
+
+  async function processFiles(files) {
+    showLoading(true);
+    let all='', errs=[];
+    for(let f of files){
+      try{
+        setStatus('पढ़ रहे: '+f.name);
+        fname=f.name.replace(/\.[^.]+$/,'');
+        let text='';
+        if(/\.docx?$/i.test(f.name)) text=await readDocx(f);
+        else text=await readTextFile(f);
+        if(text&&text.trim().length>0){
+          all+=(all?'\n\n---\n\n':'')+text;
+          fileInfo.textContent=f.name+' ('+formatSize(f.size)+')';
+        } else errs.push(f.name+': खाली');
+      } catch(e){ errs.push(f.name+': '+e.message); }
+    }
+    if(all.trim().length>0){
+      inEditor.innerHTML=all.replace(/\n/g,'<br>');
+      updateStats();
+      await doConvert(all);
+      if(errs.length) toast('कुछ फ़ाइलें नहीं पढ़ीं: '+errs.join('; '),'error');
+    } else toast('कोई पठनीय कंटेंट नहीं। '+errs.join(', '),'error');
+    showLoading(false);
+  }
+
+  const inEditor=document.getElementById('inEditor'),
+        outEditor=document.getElementById('outEditor'),
+        fileInput=document.getElementById('fileInput'),
+        uploadZone=document.getElementById('uploadZone'),
+        openBtn=document.getElementById('openBtn'),
+        convertBtn=document.getElementById('convertBtn'),
+        boldBtn=document.getElementById('boldBtn'),
+        italicBtn=document.getElementById('italicBtn'),
+        underlineBtn=document.getElementById('underlineBtn'),
+        fontSelect=document.getElementById('fontSelect'),
+        dlTxt=document.getElementById('dlTxt'),
+        dlHtml=document.getElementById('dlHtml'),
+        viewBtn=document.getElementById('viewBtn'),
+        clearBtn=document.getElementById('clearBtn'),
+        copyBtn=document.getElementById('copyBtn'),
+        statusText=document.getElementById('statusText'),
+        dot=document.getElementById('dot'),
+        fileInfo=document.getElementById('fileInfo'),
+        fontDet=document.getElementById('fontDetected'),
+        charCount=document.getElementById('charCount'),
+        inChars=document.getElementById('inChars'),
+        outChars=document.getElementById('outChars'),
+        outTables=document.getElementById('outTables'),
+        toasts=document.getElementById('toasts');
+
+  openBtn.onclick = () => fileInput.click();
+  uploadZone.onclick = () => fileInput.click();
+
+  uploadZone.addEventListener('dragover', e=>{ e.preventDefault(); uploadZone.style.borderColor='var(--accent)'; });
+  uploadZone.addEventListener('dragleave', ()=> uploadZone.style.borderColor='');
+  uploadZone.addEventListener('drop', e=>{
+    e.preventDefault();
+    uploadZone.style.borderColor='';
+    if(e.dataTransfer.files.length) processFiles(e.dataTransfer.files);
+  });
+  fileInput.addEventListener('change', ()=>{
+    if(fileInput.files.length) processFiles(fileInput.files);
+    fileInput.value='';
+  });
+
+  inEditor.addEventListener('paste', ()=> setTimeout(()=>{
+    const t=inEditor.innerText;
+    if(t.trim()) doConvert(t);
+  },100));
+
+  fontSelect.addEventListener('change', ()=>{
+    const t=inEditor.innerText;
+    if(t.trim()) doConvert(t);
+  });
+
+  convertBtn.onclick = ()=> { const t=inEditor.innerText; t.trim()?doConvert(t):toast('पहले टेक्स्ट डालें','error'); };
+  boldBtn.onclick = ()=> { outEditor.focus(); document.execCommand('bold',false); };
+  italicBtn.onclick = ()=> { outEditor.focus(); document.execCommand('italic',false); };
+  underlineBtn.onclick = ()=> { outEditor.focus(); document.execCommand('underline',false); };
+
+  dlTxt.onclick = ()=>{
+    const t=outEditor.innerText;
+    if(!t.trim()){ toast('कंटेंट नहीं','error'); return; }
+    const blob=new Blob(['\uFEFF'+t],{type:'text/plain;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download=(fname||'converted')+'_mangal.txt'; a.click();
+    toast('✓ डाउनलोड','success');
+  };
+  dlHtml.onclick = ()=>{
+    const c=outEditor.innerHTML;
+    if(!c.trim()){ toast('कंटेंट नहीं','error'); return; }
+    const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Mangal',sans-serif;font-size:16px;padding:20px}</style></head><body>${c}</body></html>`;
+    const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download=(fname||'converted')+'_mangal.html'; a.click();
+    toast('✓ डाउनलोड','success');
+  };
+  viewBtn.onclick = ()=>{
+    const c=outEditor.innerHTML;
+    if(!c.trim()){ toast('कंटेंट नहीं','error'); return; }
+    const w=window.open('','_blank');
+    w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:'Mangal',sans-serif;font-size:18px;padding:30px}</style></head><body>${c}</body></html>`);
+    w.document.close();
+    toast('✓ नए टैब में खुला','success');
+  };
+
+  copyBtn.onclick = async ()=>{
+    const text = outEditor.innerText;
+    if(!text.trim()){ toast('कॉपी करने के लिए कुछ नहीं','error'); return; }
+    try {
+      await navigator.clipboard.writeText(text);
+      toast('✓ कॉपी हो गया!','success');
+    } catch {
+      outEditor.select();
+      outEditor.setSelectionRange(0,99999);
+      document.execCommand('copy');
+      toast('✓ कॉपी (फॉलबैक)','success');
+    }
+  };
+
+  clearBtn.onclick = ()=>{
+    inEditor.innerHTML=''; outEditor.innerHTML='';
+    fileInfo.textContent='--'; fontDet.textContent='--';
+    updateStats(); setStatus('तैयार','active');
+    toast('साफ़ हो गया','info');
+  };
+
+  function updateStats(){
+    const it=inEditor.innerText||'';
+    inChars.textContent=it.length;
+    charCount.textContent=it.length+' अक्षर';
+    const ot=outEditor.innerText||'';
+    outChars.textContent=ot.length;
+    outTables.textContent=outEditor.querySelectorAll('table').length;
+  }
+  inEditor.addEventListener('input', updateStats);
+  outEditor.addEventListener('input', updateStats);
+
+  function showLoading(s){ document.getElementById('loadingOverlay')?.classList.toggle('show',s); }
+  function setStatus(m,s){ statusText.textContent=m; dot.className='status-dot '+(s==='warn'?'warn':'active'); }
+  function toast(m,t='info'){
+    const el=document.createElement('div');
+    el.className='toast '+t; el.textContent=m; toasts.appendChild(el);
+    setTimeout(()=>el.remove(),2500);
+  }
+  function formatSize(b){ return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
+
+  setStatus('तैयार -- फ़ाइल खोलें या टेक्स्ट पेस्ट करें','active');
+})();
+</script>
+</body>
+</html>
