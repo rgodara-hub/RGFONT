@@ -1,0 +1,505 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>आरजी पीएस सरदारशहर -- परिशुद्ध फॉन्ट कन्वर्टर (Kruti/Devlys → Mangal)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --navy:#1a3a6b; --navy2:#0f2550; --sky:#d6ecf8;
+  --sky2:#eaf4fb; --sky3:#f4f9fd; --white:#fff;
+  --red:#c0392b; --gold:#d4900a; --border:#b8d4e8;
+  --border2:#cde0ef; --text:#1a2540; --text2:#3a5080;
+  --ok:#167a36; --ok-bg:#e6f4ea; --shadow:rgba(26,58,107,0.1);
+}
+body{font-family:'Noto Sans Devanagari',sans-serif;background:var(--sky2);color:var(--text);}
+header{background:linear-gradient(135deg,var(--navy2),var(--navy));border-bottom:4px solid var(--red);position:sticky;top:0;z-index:100;}
+.hrow{display:flex;justify-content:space-between;align-items:center;padding:0 16px;height:58px;}
+.hlogo{display:flex;gap:12px;align-items:center;}
+.hemblem{width:44px;height:44px;background:white;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:900;color:var(--navy);}
+.htxt .ht1{font-size:17px;font-weight:900;color:white;}
+.htxt .ht1 em{color:#fbbf24;font-style:normal;}
+.htxt .ht2{font-size:9px;color:rgba(255,255,255,0.6);}
+.hbadges{display:flex;gap:6px;}
+.hb{padding:3px 9px;border-radius:4px;font-size:9px;font-weight:700;border:1px solid;}
+.hb1{background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.5);color:#fbbf24;}
+.hb2{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.85);}
+.sbar{background:var(--navy2);padding:0 16px;height:28px;display:flex;align-items:center;gap:10px;font-size:10px;color:rgba(255,255,255,0.5);border-bottom:1px solid rgba(255,255,255,0.08);}
+.sdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.3);}
+.sdot.ok{background:#4ade80;box-shadow:0 0 5px #4ade80;}
+.sdot.warn{background:#fbbf24;box-shadow:0 0 5px #fbbf24;}
+#sTxt{color:rgba(255,255,255,0.85);}
+#fInfo{margin-left:auto;font-family:monospace;}
+.main{padding:12px 14px;display:flex;flex-direction:column;gap:12px;max-width:1400px;margin:0 auto;}
+.upz{border:2px dashed var(--border);border-radius:16px;padding:20px;text-align:center;cursor:pointer;background:white;transition:0.2s;}
+.upz:hover,.upz.over{border-color:var(--navy);background:var(--sky3);}
+.upz input{position:absolute;inset:0;opacity:0;width:100%;height:100%;}
+.upi{pointer-events:none;}
+.upt{font-weight:700;color:var(--navy);margin-bottom:4px;}
+.ups{font-size:12px;color:var(--text2);margin-bottom:10px;}
+.ufmts{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;}
+.ft{padding:2px 8px;border-radius:20px;background:var(--sky);border:1px solid var(--border);font-size:10px;font-weight:700;}
+.tb{display:flex;flex-wrap:wrap;gap:6px;padding:8px 12px;background:white;border:1px solid var(--border2);border-radius:12px;}
+.btn{padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--sky3);color:var(--text2);font-size:11px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:0.15s;}
+.btn:hover{background:var(--sky);border-color:var(--navy);color:var(--navy);}
+.btn.pri{background:linear-gradient(135deg,var(--navy),#2a5298);border-color:var(--navy2);color:white;font-weight:700;}
+.btn.rbtn{background:linear-gradient(135deg,var(--red),#e74c3c);border-color:#9b2e20;color:white;}
+.btn.gbtn{background:var(--ok-bg);border-color:rgba(22,122,54,0.4);color:var(--ok);}
+.btn.dbtn{background:#fef2f2;border-color:rgba(192,57,43,0.3);color:var(--red);}
+.btn:disabled{opacity:0.4;pointer-events:none;}
+select.sel{padding:5px 24px 5px 10px;border-radius:8px;border:1px solid var(--border);background:var(--sky3);font-size:11px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%233a5080' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
+.fsg{display:flex;gap:6px;align-items:center;}
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:14px;min-height:480px;}
+.ea.single{grid-template-columns:1fr;}
+.pane{background:white;border:1px solid var(--border2);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;}
+.ph{padding:8px 14px;border-bottom:1px solid var(--border2);background:var(--sky3);display:flex;justify-content:space-between;}
+.pt{display:flex;gap:8px;align-items:center;font-weight:700;font-size:11px;}
+.pd{width:8px;height:8px;border-radius:50%;}
+.pd.n{background:var(--navy);}
+.pd.g{background:var(--ok);}
+.eb{flex:1;padding:16px 18px;overflow:auto;outline:none;font-size:15px;line-height:2;color:var(--text);white-space:pre-wrap;}
+.eb:empty::before{content:attr(data-ph);color:var(--text3);font-style:italic;}
+.eb table{border-collapse:collapse;width:100%;margin:14px 0;border:1px solid var(--border);}
+.eb th{background:var(--navy);color:white;padding:8px 12px;border:1px solid var(--navy2);}
+.eb td{padding:8px 12px;border:1px solid var(--border);}
+.wb{padding:6px 14px;border-top:1px solid var(--border2);background:#fafeff;font-size:9px;display:flex;gap:16px;color:var(--text3);}
+.notif{position:fixed;top:80px;right:18px;padding:10px 18px;border-radius:40px;border-left:4px solid;font-weight:600;background:white;z-index:1000;transform:translateX(150%);transition:0.25s cubic-bezier(0.2,0.9,0.4,1.1);}
+.notif.show{transform:translateX(0);}
+.notif.ok{border-left-color:var(--ok);color:var(--ok);}
+.notif.er{border-left-color:var(--red);color:var(--red);}
+.ld{position:fixed;inset:0;background:rgba(234,244,251,0.9);display:flex;align-items:center;justify-content:center;z-index:2000;opacity:0;pointer-events:none;backdrop-filter:blur(4px);transition:0.2s;}
+.ld.show{opacity:1;pointer-events:all;}
+.lbox{background:white;border-radius:24px;padding:32px 40px;text-align:center;}
+.spin{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--navy);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+footer{background:var(--navy);border-top:3px solid var(--red);padding:10px 20px;display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,0.6);}
+@media (max-width:700px){.ea{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="ld" id="ldOverlay"><div class="lbox"><div class="spin"></div><div><strong id="ldMsg">प्रोसेसिंग...</strong><br>कृपया प्रतीक्षा करें</div></div></div>
+<div class="notif" id="notifEl"></div>
+<header>
+  <div class="hrow">
+    <div class="hlogo"><div class="hemblem">RG</div><div class="htxt"><div class="ht1"><em>RG</em> PS Sardarshahar</div><div class="ht2">Kruti/Devlys → मंगल यूनिकोड (परिशुद्ध)</div></div></div>
+    <div class="hbadges"><span class="hb hb1">राजस्थान पुलिस</span><span class="hb hb2">टेबल सेफ</span></div>
+  </div>
+</header>
+<div class="sbar"><div class="sdot" id="sDot"></div><span id="sTxt">तैयार -- फ़ाइल खोलें या टेक्स्ट पेस्ट करें</span><span id="fInfo"></span></div>
+<div class="main">
+  <div class="upz" id="upzEl">
+    <input type="file" id="fileInp" accept=".txt,.htm,.html,.rtf,.docx,.doc">
+    <div class="upi"><div style="font-size:38px;">📁</div><div class="upt">फ़ाइल यहाँ खींचें या क्लिक करें</div><div class="ups">Devlys / Kruti Dev → Mangal Unicode • ऑटो कन्वर्ट</div><div class="ufmts"><span class="ft">.txt</span><span class="ft">.html</span><span class="ft">.docx</span><span class="ft">कॉपी-पेस्ट</span></div></div>
+  </div>
+  <div class="tb">
+    <button class="btn pri" id="openFileBtn">📂 फ़ाइल</button><button class="btn rbtn" id="cvtBtn" disabled>⚡ कन्वर्ट</button>
+    <div style="width:1px; background:var(--border2); margin:0 4px;"></div>
+    <button class="btn" id="boldBtn"><b>B</b></button><button class="btn" id="italicBtn"><i>I</i></button><button class="btn" id="ulBtn"><u>U</u></button>
+    <button class="btn" id="alLeft">⬅️</button><button class="btn" id="alCtr">↔️</button><button class="btn" id="alRt">➡️</button>
+    <select class="sel" id="hdSel"><option value="">शीर्षक</option><option value="h1">H1</option><option value="h2">H2</option><option value="h3">H3</option><option value="p">सामान्य</option></select>
+    <div class="fsg"><span>A</span><input type="range" id="fsRange" min="12" max="28" value="16"><span id="fsVal">16</span></div>
+    <button class="btn" id="splitBtn">🔲 दोहरा</button><button class="btn" id="singleBtn">🔳 एकल</button>
+    <button class="btn gbtn" id="dlTxtBtn" disabled>📄 .txt</button><button class="btn gbtn" id="dlHtmlBtn" disabled>🌐 .html</button>
+    <button class="btn" id="undoBtn">↩️ पूर्ववत</button><button class="btn dbtn" id="clearBtn">🗑️ साफ़ करें</button>
+  </div>
+  <div class="ea" id="eaDiv">
+    <div class="pane" id="inPane">
+      <div class="ph"><div class="pt"><span class="pd n"></span> मूल टेक्स्ट (Kruti/Devlys)</div><div><button class="btn bsm" id="pasteBtn">📋 पेस्ट</button><button class="btn bsm" id="sampleBtn">📄 नमूना</button></div></div>
+      <div class="eb" id="inEd" contenteditable="true" data-ph="यहाँ Kruti / Devlys टेक्स्ट पेस्ट करें..."></div>
+      <div class="wb"><span>अक्षर: <span id="inCharCnt">0</span></span> <span>शब्द: <span id="inWordCnt">0</span></span></div>
+    </div>
+    <div class="pane" id="outPane">
+      <div class="ph"><div class="pt"><span class="pd g"></span> मंगल यूनिकोड (संपादन योग्य)</div><div><button class="btn bsm gbtn" id="copyBtn">📋 कॉपी करें</button><button class="btn bsm" id="clrOutBtn">✖️</button></div></div>
+      <div class="eb" id="outEd" contenteditable="true" data-ph="यहाँ कन्वर्टेड मंगल दिखेगा..."></div>
+      <div class="wb"><span>अक्षर: <span id="outCharCnt">0</span></span> <span>शब्द: <span id="outWordCnt">0</span></span> <span>टेबल: <span id="outTblCnt">0</span></span></div>
+    </div>
+  </div>
+</div>
+<footer><span><strong>आरजी पीएस सरदारशहर</strong> -- राजस्थान पुलिस, पूर्णतया सटीक मैपिंग</span><span>Kruti Dev 010 / Devlys 010 → मंगल यूनिकोड</span></footer>
+
+<script>
+// ============================================================
+// सही एवं पूर्ण मैपिंग टेबल (Kruti Dev/Devlys 010 → Unicode)
+// आधार: मानक कृतिदेव एन्कोडिंग, क्रमबद्ध (लम्बे पैटर्न पहले)
+// ============================================================
+(function(){
+  const map = [];
+  function add(from, to) { map.push([from, to]); }
+
+  // ---- 3-4 अक्षर के संयुक्ताक्षर/विशेष ----
+  add('vkS', 'औ'); add('vks', 'ओ'); add('bZ', 'ई'); add('Å', 'ऊ');
+  add(';k', 'ो'); add(';s', 'े'); add('jq', 'रु'); add('jw', 'रू');
+  add('Jq', 'श्रु'); add('Jw', 'श्रू');
+  
+  // प्रमुख संयुक्ताक्षर (halant + ra / ya)
+  add('iZ', 'प्र');   // प्र
+  add('nZ', 'द्र');   // द्र
+  add('Dz', 'क्र');   // क्र
+  add('lZ', 'स्र');   // स्र
+  add('oZ', 'व्र');   // व्र
+  add('cZ', 'ब्र');   // ब्र
+  add('HZ', 'भ्र');   // भ्र
+  add('xZ', 'ग्र');   // ग्र
+  add('tZ', 'ज्र');   // ज्र
+  add('gZ', 'ह्र');   // ह्र
+  add('JZ', 'श्र');   // श्र
+  add('[Z', 'ख्र');   // ख्र
+  add('K',  'ज्ञ');   // ज्ञ
+  add('&',  'ज्ञ');
+  add('=',  'त्र');   // त्र
+  add('$',  'क्ष');   // क्ष
+  add('J',  'श्र');   // श्र
+  add('D',  'क्');    // क् (half क)
+  add('P',  'प्');    // प्
+  
+  // स्वर (independent)
+  add('vk', 'आ'); add(',s', 'ऐ'); add('v', 'अ'); add('b', 'इ');
+  add('m', 'उ'); add('_', 'ऋ'); add(',', 'ए'); add('A', 'ए');
+  
+  // मात्राएँ (vowel signs)
+  add('k', 'ा'); add('f', 'ि'); add('h', 'ी'); add('q', 'ु');
+  add('w', 'ू'); add('s', 'े'); add('S', 'ै'); add(';', 'ो');
+  add('+', 'ौ'); add('Z', 'ो');     // Z का दोहरा उपयोग, किन्तु लम्बे पैटर्न में पहले प्राथमिकता
+  add('a', 'ं'); add('¡', 'ं'); add('%', 'ः'); add('/', '्');
+  add('~', '्'); add('z', 'ं');
+  
+  // व्यंजन (मूल वर्णमाला)
+  add('d', 'क'); add('[', 'ख'); add('x', 'ग'); add('?', 'घ'); add('³', 'ङ');
+  add('p', 'च'); add('N', 'छ'); add('t', 'ज'); add('>', 'झ'); add('´', 'ञ');
+  add('V', 'ट'); add('B', 'ठ'); add('M', 'ड'); add('<', 'ढ'); add('ñ', 'ण');
+  add('r', 'त'); add('F', 'थ'); add('n', 'द'); add('è', 'ध'); add('u', 'न');
+  add('i', 'प'); add('Q', 'फ'); add('c', 'ब'); add('H', 'भ'); add('e', 'म');
+  add('y', 'य'); add('j', 'र'); add('l', 'ल');          // l → ल (महत्वपूर्ण)
+  add('L', 'स');      // L (capital L) → स
+  add('g', 'ह'); add('G', 'ह'); add('\'', 'श');      // apostrophe → श
+  add('"', 'ष');      // double quote → ष
+  add('}', 'ड़'); add('~', 'ढ़');   // nukta
+  
+  // अनुस्वार/विसर्ग/चिह्न
+  add('||', '॥'); add('|', '।'); add('.', '।');
+  
+  // देवनागरी अंक
+  for(let i=0;i<=9;i++) add(i.toString(), String.fromCharCode(0x0966+i));
+  
+  // अतिरिक्त कुछ सामान्य संयुक्ताक्षर जो ऊपर छूट गए
+  add('zK', 'ंज्ञ'); add(';s', 'े'); add('vkS', 'औ');
+  add('lz', 'स्र'); add('nz', 'द्र');
+  
+  // लम्बाई के अनुसार घटते क्रम में सॉर्ट करें (ग्रीडी मैचिंग के लिए जरूरी)
+  map.sort((a,b)=>b[0].length - a[0].length);
+  window.MAPPING = map;
+})();
+
+// मुख्य रूपांतरण फलन
+function convertKrutiToUnicode(str) {
+  if(!str || typeof str !== 'string') return '';
+  let out = '';
+  let i = 0;
+  const len = str.length;
+  while(i < len) {
+    let matched = false;
+    for(const [pat, repl] of window.MAPPING) {
+      if(i + pat.length <= len && str.substr(i, pat.length) === pat) {
+        out += repl;
+        i += pat.length;
+        matched = true;
+        break;
+      }
+    }
+    if(!matched) { out += str[i]; i++; }
+  }
+  return out;
+}
+
+// यूनिकोड देवनागरी पहचान (20% से अधिक)
+function isUnicodeDevanagari(txt) {
+  if(!txt || txt.trim().length===0) return false;
+  const devCount = (txt.match(/[\u0900-\u097F]/g)||[]).length;
+  const total = (txt.match(/[\u0900-\u097F\u0000-\u007F]/g)||[]).length;
+  if(total===0) return false;
+  return (devCount/total) > 0.2;
+}
+
+// HTML टैग को सुरक्षित रखते हुए टेक्स्ट नोड्स का कन्वर्जन
+function convertHtmlContent(html) {
+  return html.replace(/(<[^>]+>)|([^<]+)/g, (match, tag, text) => {
+    if(tag) return tag;
+    if(!text || /^\s*$/.test(text)) return text||'';
+    if(isUnicodeDevanagari(text)) return text;
+    return convertKrutiToUnicode(text);
+  });
+}
+
+// पाइप टेबल और सादे टेक्स्ट का कन्वर्जन
+function convertPlainText(raw) {
+  const lines = raw.split(/\r?\n/);
+  let result = [];
+  let i=0;
+  while(i < lines.length) {
+    let line = lines[i];
+    if(line.includes('|') && line.match(/\|.+\|/)) {
+      let tableRows = [];
+      while(i < lines.length && lines[i].includes('|')) {
+        if(!/^[\s|\-:+]+$/.test(lines[i])) tableRows.push(lines[i]);
+        i++;
+      }
+      if(tableRows.length) result.push(buildTableFromPipe(tableRows));
+      continue;
+    }
+    let converted = isUnicodeDevanagari(line) ? line : convertKrutiToUnicode(line);
+    result.push(converted);
+    i++;
+  }
+  return result.join('<br>');
+}
+
+function buildTableFromPipe(rows) {
+  let html = '<table style="border-collapse:collapse; width:100%; margin:10px 0">';
+  rows.forEach((row, idx) => {
+    let cells = row.split('|');
+    if(cells[0].trim() === '') cells.shift();
+    if(cells.length && cells[cells.length-1].trim() === '') cells.pop();
+    let tag = idx===0 ? 'th' : 'td';
+    html += '<tr>';
+    cells.forEach(cell => {
+      let content = cell.trim();
+      content = isUnicodeDevanagari(content) ? content : convertKrutiToUnicode(content);
+      html += `<${tag} style="border:1px solid #b8d4e8; padding:8px 12px;">${content}</${tag}>`;
+    });
+    html += '</tr>';
+  });
+  html += '</table>';
+  return html;
+}
+
+// DOCX पार्सर
+async function parseDocxFile(file) {
+  const zip = await JSZip.loadAsync(file);
+  const docFile = zip.file("word/document.xml");
+  if(!docFile) throw new Error("DOCX में document.xml नहीं मिला");
+  const xmlStr = await docFile.async("string");
+  const parser = new DOMParser();
+  const docXml = parser.parseFromString(xmlStr, "application/xml");
+  let tablesHtml = '';
+  const tables = docXml.getElementsByTagNameNS("*", "tbl");
+  for(let tbl of tables) {
+    let rows = tbl.getElementsByTagNameNS("*", "tr");
+    let tblHtml = '<table style="border-collapse:collapse; width:100%">';
+    for(let r=0; r<rows.length; r++) {
+      let cells = rows[r].getElementsByTagNameNS("*", "tc");
+      let tag = r===0 ? 'th' : 'td';
+      tblHtml += '<tr>';
+      for(let cell of cells) {
+        let cellText = '';
+        let texts = cell.getElementsByTagNameNS("*", "t");
+        for(let t of texts) cellText += t.textContent;
+        let converted = isUnicodeDevanagari(cellText) ? cellText : convertKrutiToUnicode(cellText);
+        tblHtml += `<${tag} style="border:1px solid #b8d4e8; padding:8px;">${converted}</${tag}>`;
+      }
+      tblHtml += '</tr>';
+    }
+    tblHtml += '</table>';
+    tablesHtml += tblHtml;
+  }
+  let plainChunks = [];
+  let paras = docXml.getElementsByTagNameNS("*", "p");
+  for(let p of paras) {
+    let pText = '';
+    let runs = p.getElementsByTagNameNS("*", "r");
+    for(let run of runs) {
+      let txtNodes = run.getElementsByTagNameNS("*", "t");
+      for(let tn of txtNodes) pText += tn.textContent;
+    }
+    if(pText.trim()) plainChunks.push(pText);
+  }
+  return { text: plainChunks.join('\n'), tableHtml: tablesHtml };
+}
+
+// फ़ाइल रीडिंग (एन्कोडिंग डिटेक्ट)
+function readTextFileWithEncoding(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const bytes = new Uint8Array(e.target.result);
+      const utf8 = new TextDecoder('utf-8').decode(bytes);
+      const ansi = new TextDecoder('windows-1252').decode(bytes);
+      function scoreKruti(txt) { return (txt.match(/[dfkqslmnprtbcgxoujHBVMNF;+><=~'"&$#[\]{}]/g)||[]).length; }
+      resolve(scoreKruti(ansi) > scoreKruti(utf8) + 5 ? ansi : utf8);
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// ----------------------------------------------
+// DOM राज्य एवं इवेंट हैंडलर
+// ----------------------------------------------
+let historyStack = [];
+let currentFileName = "converted_document";
+
+function showNotif(msg, type="inf") {
+  const el = document.getElementById("notifEl");
+  el.innerHTML = (type==='ok'?'✓ ':(type==='er'?'✖️ ':'ℹ️ ')) + msg;
+  el.className = `notif ${type} show`;
+  clearTimeout(window._notifTimer);
+  window._notifTimer = setTimeout(()=> el.classList.remove("show"), 2800);
+}
+function setStatus(msg, state) {
+  document.getElementById("sTxt").innerText = msg;
+  const dot = document.getElementById("sDot");
+  dot.className = "sdot" + (state==='ok'?' ok':(state==='warn'?' warn':''));
+}
+function showLoading(show, msg="प्रोसेस हो रहा...") {
+  const ld = document.getElementById("ldOverlay");
+  if(msg) document.getElementById("ldMsg").innerText = msg;
+  if(show) ld.classList.add("show"); else ld.classList.remove("show");
+}
+function updateStats() {
+  const outEd = document.getElementById("outEd");
+  const outText = outEd.innerText || "";
+  document.getElementById("outCharCnt").innerText = outText.length;
+  document.getElementById("outWordCnt").innerText = outText.trim() ? outText.trim().split(/\s+/).length : 0;
+  document.getElementById("outTblCnt").innerText = outEd.querySelectorAll("table").length;
+  const inEd = document.getElementById("inEd");
+  const inText = inEd.innerText || "";
+  document.getElementById("inCharCnt").innerText = inText.length;
+  document.getElementById("inWordCnt").innerText = inText.trim() ? inText.trim().split(/\s+/).length : 0;
+}
+function saveUndoState() {
+  const outHtml = document.getElementById("outEd").innerHTML;
+  historyStack.push(outHtml);
+  if(historyStack.length > 25) historyStack.shift();
+}
+function performConversion(rawText, extraTableHtml="") {
+  setStatus("कन्वर्ट हो रहा...", "warn");
+  setTimeout(() => {
+    try {
+      let finalHtml = "";
+      if(extraTableHtml) {
+        let mainPart = isUnicodeDevanagari(rawText) ? rawText.replace(/\n/g,'<br>') : convertPlainText(rawText);
+        finalHtml = mainPart + "<br>" + extraTableHtml;
+      } else if(/<table|<tr|<td|<th/i.test(rawText)) {
+        finalHtml = convertHtmlContent(rawText);
+      } else {
+        finalHtml = convertPlainText(rawText);
+      }
+      saveUndoState();
+      const outEd = document.getElementById("outEd");
+      outEd.innerHTML = finalHtml;
+      outEd.style.fontSize = document.getElementById("fsRange").value + "px";
+      updateStats();
+      document.getElementById("cvtBtn").disabled = false;
+      document.getElementById("dlTxtBtn").disabled = false;
+      document.getElementById("dlHtmlBtn").disabled = false;
+      setStatus("कन्वर्ट पूर्ण ✓", "ok");
+      showNotif("मंगल यूनिकोड में सफलतापूर्वक बदला", "ok");
+    } catch(err) {
+      showNotif("कन्वर्ट त्रुटि: "+err.message, "er");
+      setStatus("त्रुटि", "warn");
+    } finally {
+      showLoading(false);
+    }
+  }, 30);
+}
+async function loadFile(file) {
+  showLoading(true, `पढ़ा जा रहा: ${file.name}`);
+  currentFileName = file.name.replace(/\.[^/.]+$/, "");
+  document.getElementById("fInfo").innerText = file.name;
+  try {
+    if(/\.docx?$/i.test(file.name)) {
+      const { text, tableHtml } = await parseDocxFile(file);
+      document.getElementById("inEd").innerHTML = text.replace(/\n/g,'<br>');
+      updateStats();
+      performConversion(text, tableHtml);
+    } else {
+      const text = await readTextFileWithEncoding(file);
+      document.getElementById("inEd").innerHTML = text.replace(/\n/g,'<br>');
+      updateStats();
+      performConversion(text, "");
+    }
+  } catch(e) {
+    showLoading(false);
+    showNotif("फ़ाइल त्रुटि: "+e.message, "er");
+    setStatus("लोड विफल", "warn");
+  }
+}
+function autoConvertInput() {
+  const txt = document.getElementById("inEd").innerText || "";
+  if(txt.trim()) performConversion(txt, "");
+  else document.getElementById("cvtBtn").disabled = true;
+}
+
+// DOM लोड होने पर सभी बटन संचालन
+document.addEventListener("DOMContentLoaded", () => {
+  const inEd = document.getElementById("inEd");
+  const outEd = document.getElementById("outEd");
+  const cvtBtn = document.getElementById("cvtBtn");
+  const fileInp = document.getElementById("fileInp");
+  const upz = document.getElementById("upzEl");
+  const openBtn = document.getElementById("openFileBtn");
+  const sampleBtn = document.getElementById("sampleBtn");
+  const pasteBtn = document.getElementById("pasteBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const clrOut = document.getElementById("clrOutBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const undoBtn = document.getElementById("undoBtn");
+  const dlTxt = document.getElementById("dlTxtBtn");
+  const dlHtml = document.getElementById("dlHtmlBtn");
+  const splitBtn = document.getElementById("splitBtn");
+  const singleBtn = document.getElementById("singleBtn");
+  const fsRange = document.getElementById("fsRange");
+  const fsVal = document.getElementById("fsVal");
+  const boldBtn = document.getElementById("boldBtn");
+  const italicBtn = document.getElementById("italicBtn");
+  const ulBtn = document.getElementById("ulBtn");
+  const alLeft = document.getElementById("alLeft");
+  const alCtr = document.getElementById("alCtr");
+  const alRt = document.getElementById("alRt");
+  const hdSel = document.getElementById("hdSel");
+
+  openBtn.onclick = ()=>fileInp.click();
+  upz.ondragover = (e)=>{e.preventDefault(); upz.classList.add("over");};
+  upz.ondragleave = ()=>upz.classList.remove("over");
+  upz.ondrop = (e)=>{e.preventDefault(); upz.classList.remove("over"); if(e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);};
+  fileInp.onchange = ()=>{if(fileInp.files.length) loadFile(fileInp.files[0]); fileInp.value='';};
+  cvtBtn.onclick = ()=>{const txt=inEd.innerText; if(txt.trim()) performConversion(txt,""); else showNotif("टेक्स्ट डालें","er");};
+  sampleBtn.onclick = ()=>{
+    const sampleText = `dk;kZy; Fkkukf/kdkjh iqfyl Fkkuk ljnkj'kgj ftyk pw:\n\nfo"k;%& 135]126¼2½ ch,u,l,l\n\negksn; gkykr bl izdkj ls fuosnu gS fd fnukad 13.04.2026 dks Jh izgykn lkj.k }kjk jke tkfr tkV mez 40 lky us jfir nj[kkLr nh A\n\n| Øe la- | uke | irk |\n|---------|------|-----|\n| 1 | egkohj flag | ckyjklj |\n| 2 | Hkxokuh nsoh | ckyjklj |`;
+    inEd.innerText = sampleText;
+    updateStats();
+    performConversion(sampleText, "");
+  };
+  pasteBtn.onclick = async ()=>{
+    try {
+      const txt = await navigator.clipboard.readText();
+      if(txt) { inEd.innerText = txt; updateStats(); performConversion(txt, ""); }
+      else showNotif("क्लिपबोर्ड खाली","inf");
+    } catch(e){ showNotif("Ctrl+V दबाएँ","inf"); }
+  };
+  copyBtn.onclick = async ()=>{
+    const txt = outEd.innerText;
+    if(txt.trim()) { await navigator.clipboard.writeText(txt); showNotif("कॉपी हो गया","ok"); }
+    else showNotif("कॉपी करने के लिए कुछ नहीं","er");
+  };
+  clrOut.onclick = ()=>{ saveUndoState(); outEd.innerHTML=""; updateStats(); };
+  clearBtn.onclick = ()=>{ saveUndoState(); inEd.innerHTML=""; outEd.innerHTML=""; updateStats(); cvtBtn.disabled=true; dlTxtBtn.disabled=true; dlHtmlBtn.disabled=true; setStatus("साफ़","idle"); showNotif("सब साफ़ हो गया","inf"); };
+  undoBtn.onclick = ()=>{ if(historyStack.length) { outEd.innerHTML = historyStack.pop(); updateStats(); showNotif("पूर्ववत ✅","ok"); } else showNotif("अंडो के लिए कुछ नहीं","inf"); };
+  dlTxt.onclick = ()=>{ const txt=outEd.innerText; if(txt.trim()){ const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob(["\uFEFF"+txt],{type:"text/plain"})); a.download=`${currentFileName}_mangal.txt`; a.click(); URL.revokeObjectURL(a.href); showNotif("डाउनलोड .txt","ok"); } else showNotif("कंटेंट नहीं","er"); };
+  dlHtml.onclick = ()=>{ const html=outEd.innerHTML; if(html.trim()){ const full=`<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:Mangal,'Noto Sans Devanagari';padding:30px;line-height:1.8}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:6px}</style></head><body>${html}</body></html>`; const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([full],{type:"text/html"})); a.download=`${currentFileName}_mangal.html`; a.click(); URL.revokeObjectURL(a.href); showNotif("डाउनलोड HTML","ok"); } };
+  splitBtn.onclick = ()=>{ document.getElementById("eaDiv").classList.remove("single"); document.getElementById("inPane").style.display="flex"; };
+  singleBtn.onclick = ()=>{ document.getElementById("eaDiv").classList.add("single"); document.getElementById("inPane").style.display="none"; };
+  fsRange.oninput = ()=>{ let v=fsRange.value; fsVal.innerText=v; outEd.style.fontSize=v+"px"; };
+  function execCmd(cmd,val=null){ outEd.focus(); document.execCommand(cmd,false,val); }
+  boldBtn.onclick = ()=>execCmd("bold"); italicBtn.onclick=()=>execCmd("italic"); ulBtn.onclick=()=>execCmd("underline");
+  alLeft.onclick=()=>execCmd("justifyLeft"); alCtr.onclick=()=>execCmd("justifyCenter"); alRt.onclick=()=>execCmd("justifyRight");
+  hdSel.onchange = ()=>{ if(hdSel.value) execCmd("formatBlock", hdSel.value); hdSel.value=""; };
+  inEd.addEventListener("input", ()=>{ updateStats(); cvtBtn.disabled = !(inEd.innerText.trim().length>0); if(inEd.innerText.trim()) autoConvertInput(); });
+  outEd.addEventListener("input", updateStats);
+  setStatus("तैयार", "idle");
+});
+</script>
+</body>
+</html>
