@@ -1,0 +1,718 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="hi">
+<head>
+    <!--Head content as before (unchanged) 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>RG PS Sardarshahar – दमदार हिंदी फॉन्ट कन्वर्टर (द्विदिशीय)</title>
+    <!--Other meta tags and styles remain unchanged 
+    <!-- ... 
+</head>
+<body>
+<!--HTML body content remains the same 
+
+<script>
+  (function() {
+    // Mapping arrays unchanged (please verify arrays' length equality beforehand)
+    Var array_one_k2u = [
+        "ñ", "Q+Z", "sas", "aa", ")Z", "ZZ", "'", "'", """, """,
+        "å", "ƒ", "„", "…", "†", "‡", "ˆ", "‰", "Š", "‹",
+        "¶+", "d+", "[+k", "[+", "x+", "T+", "t+", "M+", "<+", "Q+", ";+", "j+", "u+",
+        "Ùk", "Ù", "ä", "–", "--", "é", "™", "=kk", "f=k",
+        "à", "á", "â", "ã", "ºz", "º", "í", "{k", "{", "=", "«",
+        "Nî", "Vî", "Bî", "Mî", "<î", "|", "K", "}",
+        "J", "Vª", "Mª", "<ªª", "Nª", "Ø", "Ý", "nzZ", "æ", "ç", "Á", "xz", "#", ":",
+        "v‚", "vks", "vkS", "vk", "v", "b±", "Ã", "bZ", "b", "m", "Å", ",s", ",", "_",
+        "ô", "d", "Dk", "D", "£", "[k", "[", "x", "Xk", "X", "Ä", "?k", "?", "³",
+        "p", "Pk", "P", "N", "t", "Tk", "T", ">", "÷", "¥",
+        "ê", "ë", "V", "B", "ì", "ï", "M+", "<+", "M", "<", ".k", ".",
+        "r", "Rk", "R", "Fk", "F", ")", "n", "/k", "èk", "/", "Ë", "è", "u", "Uk", "U",
+        "i", "Ik", "I", "Q", "¶", "c", "Ck", "C", "Hk", "H", "e", "Ek", "E",
+        ";", "¸", "j", "y", "Yk", "Y", "G", "o", "Ok", "O",
+        "'k", "'", "\"k", "\"", "l", "Lk", "L", "g",
+        "È", "z",
+        "Ì", "Í", "Î", "Ï", "Ñ", "Ò", "Ó", "Ô", "Ö", "Ø", "Ù", "Ük", "Ü",
+        "‚", "¨", "ks", "©", "kS", "k", "h", "q", "w", "`", "s", "¢", "S",
+        "a", "¡", "%", "W", "•", "·", "∙", "·", "~j", "~", "\\", "+", " ः",
+        "^", "*", "Þ", "ß", "(", "¼", "½", "¿", "À", "¾", "A", "-", "&", "&", "Œ", "]", "~ ", "@",
+        "ाे", "ाॅ", "ंै", "े्र", "अौ", "अो", "आॅ"
+    ];
+
+    Var array_two_k2u = [
+        "॰", "QZ+", "sa", "a", "र्द्ध", "Z", "\"", "\"", "'", "'",
+        "०", "१", "२", "३", "४", "५", "६", "७", "८", "९",
+        "फ़्", "क़", "ख़", "ख़्", "ग़", "ज़्", "ज़", "ड़", "ढ़", "फ़", "य़", "ऱ", "ऩ",
+        "त्त", "त्त्", "क्त", "दृ", "कृ", "न्न", "न्न्", "=k", "f=",
+        "ह्न", "ह्य", "हृ", "ह्म", "ह्र", "ह्", "द्द", "क्ष", "क्ष्", "त्र", "त्र्",
+        "छ्य", "ट्य", "ठ्य", "ड्य", "ढ्य", "द्य", "ज्ञ", "द्व",
+        "श्र", "ट्र", "ड्र", "ढ्र", "छ्र", "क्र", "फ्र", "र्द्र", "द्र", "प्र", "प्र", "ग्र", "रु", "रू",
+        "ऑ", "ओ", "औ", "आ", "अ", "ईं", "ई", "ई", "इ", "उ", "ऊ", "ऐ", "ए", "ऋ",
+        "क्क", "क", "क", "क्", "ख", "ख", "ख्", "ग", "ग", "ग्", "घ", "घ", "घ्", "ङ",
+        "च", "च", "च्", "छ", "ज", "ज", "ज्", "झ", "झ्", "ञ",
+        "ट्ट", "ट्ठ", "ट", "ठ", "ड्ड", "ड्ढ", "ड़", "ढ़", "ड", "ढ", "ण", "ण्",
+        "त", "त", "त्", "थ", "थ्", "द्ध", "द", "ध", "ध", "ध्", "ध्", "ध्", "न", "न", "न्",
+        "प", "प", "प्", "फ", "फ्", "ब", "ब", "ब्", "भ", "भ्", "म", "म", "म्",
+        "य", "य्", "र", "ल", "ल", "ल्", "ळ", "व", "व", "व्",
+        "श", "श्", "ष", "ष्", "स", "स", "स्", "ह",
+        "ीं", "्र",
+        "द्द", "ट्ट", "ट्ठ", "ड्ड", "कृ", "भ", "्य", "ड्ढ", "झ्", "क्र", "त्त्", "श", "श्",
+        "ॉ", "ो", "ो", "ौ", "ौ", "ा", "ी", "ु", "ू", "ृ", "े", "े", "ै",
+        "ं", "ँ", "ः", "ॅ", "ऽ", "ऽ", "ऽ", "ऽ", "्र", "्", "?", "़", ":",
+        "'", "'", """, """, ";", "(", ")", "{", "}", "=", "।", ".", "-", "µ", "॰", ",", "् ", "/",
+        "ो", "ॉ", "ैं", "्रे", "औ", "ओ", "ऑ"
+    ];
+
+    Var array_one_u2k = [
+        "'", "'", """, """, "(", ")", "{", "}", "=", "।", "?", "-", "µ", "॰", ",",
+        ".", "् ", "०", "१", "२", "३", "४", "५", "६", "७", "८", "९", "x", "+", ";", "_",
+        "फ़्", "क़", "ख़", "ग़", "ज़्", "ज़", "ड़", "ढ़", "फ़", "य़", "ऱ", "ऩ",
+        "त्त्", "त्त", "क्त", "दृ", "कृ",
+        "श्व", "ह्न", "ह्य", "हृ", "ह्म", "ह्र", "ह्", "द्द", "क्ष्", "क्ष", "त्र्", "त्र", "ज्ञ",
+        "छ्य", "ट्य", "ठ्य", "ड्य", "ढ्य", "द्य", "द्व",
+        "श्र", "ट्र", "ड्र", "ढ्र", "छ्र", "क्र", "फ्र", "द्र", "प्र", "ग्र", "रु", "रू",
+        "्र", "ओ", "औ", "आ", "अ", "ई", "इ", "उ", "ऊ", "ऐ", "ए", "ऋ",
+        "क्", "क", "क्क", "ख्", "ख", "ग्", "ग", "घ्", "घ", "ङ",
+        "चै", "च्", "च", "छ", "ज्", "ज", "झ्", "झ", "ञ",
+        "ट्ट", "ट्ठ", "ट", "ठ", "ड्ड", "ड्ढ", "ड", "ढ", "ण्", "ण",
+        "त्", "त", "थ्", "थ", "द्ध", "द", "ध्", "ध", "न्", "न",
+        "प्", "प", "फ्", "फ", "ब्", "ब", "भ्", "भ", "म्", "म",
+        "य्", "य", "र", "ल्", "ल", "ळ", "व्", "व",
+        "श्", "श", "ष्", "ष", "स्", "स", "ह",
+        "ऑ", "ॉ", "ो", "ौ", "ा", "ी", "ु", "ू", "ृ", "े", "ै",
+        "ं", "ँ", "ः", "ॅ", "ऽ", "् ", "्", "़", "/"
+    ];
+
+    Var array_two_u2k = [
+        "^", "*", "Þ", "ß", "¼", "½", "¿", "À", "¾", "A", "\\", "&", "&", "Œ", "]",
+        "-", "~ ", "å", "ƒ", "„", "…", "†", "‡", "ˆ", "‰", "Š", "‹", "Û", "$", "(", "&",
+        "¶+", "d+", "[k+", "x+", "T+", "t+", "M+", "<+", "Q+", ";+", "j+", "u+",
+        "Ù", "Ùk", "ä", "–", "--",
+        "Üo", "à", "á", "â", "ã", "ºz", "º", "í", "{", "{k", "«", "=", "K",
+        "Nî", "Vî", "Bî", "Mî", "<î", "|", "}",
+        "J", "Vª", "Mª", "<ªª", "Nª", "Ø", "Ý", "æ", "ç", "xz", "#", ":",
+        "z", "vks", "vkS", "vk", "v", "bZ", "b", "m", "Å", ",s", ",", "_",
+        "D", "d", "ô", "[", "[k", "X", "x", "?", "?k", "³",
+        "pkS", "P", "p", "N", "T", "t", "÷", ">", "¥",
+        "ê", "ë", "V", "B", "ì", "ï", "M", "<", ".", ".k",
+        "R", "r", "F", "Fk", ")", "n", "è", "èk", "U", "u",
+        "I", "i", "¶", "Q", "C", "c", "H", "Hk", "E", "e",
+        "¸", ";", "j", "Y", "y", "G", "O", "o",
+        "'", "'k", "\"", "\"k", "L", "l", "g",
+        "v‚", "‚", "ks", "kS", "k", "h", "q", "w", "`", "s", "S",
+        "a", "¡", "%", "W", "·", "~ ", "~", "+", "@"
+    ];
+
+    // ==== More robust krutiToUnicode ==== 
+    Function krutiToUnicode(text) {
+        If (!text || !text.trim()) return '';
+
+        Var modified = text;
+
+        // Replace all keys with corresponding unicode
+        For (var idx = 0; idx < array_one_k2u.length; idx++) {
+            Var search = array_one_k2u[idx];
+            Var replace = array_two_k2u[idx];
+            Var pattern = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            Var regex = new RegExp(pattern, 'g');
+            Modified = modified.replace(regex, replace);
+        }
+
+        // Specific character fixes after mapping
+
+        // ± (reph+anusvAr) → Zं
+        Modified = modified.replace(/±/g, "Zं");
+
+        // Æ → र्f
+        Modified = modified.replace(/Æ/g, "र्f");
+
+        // Move f (ि) before consonant in string (Regex version)
+        // 'f.' -> '.ि' repeatedly 
+        While (/f./.test(modified)) {
+            Modified = modified.replace(/f(.)/g, '$1ि');
+        }
+
+        // Ç → fa, É → र्fa replacements
+        Modified = modified.replace(/Ç/g, "fa");
+        Modified = modified.replace(/É/g, "र्fa");
+
+        // 'fa' followed by char → char + 'िं' (doing it with regex repeating)
+        While (/fa./.test(modified)) {
+            Modified = modified.replace(/fa(.)/g, '$1िं');
+        }
+
+        // Ê → ीZ
+        Modified = modified.replace(/Ê/g, "ीZ");
+
+        // Fix wrong 'ि्' sequence to '्' + char + 'ि'
+        While (/ि्./.test(modified)) {
+            Modified = modified.replace(/ि्(.)/g, '्$1ि');
+        }
+
+        // Handle 'Z' (ref) repositioning
+        // This code moves 'Z' to before consonant group properly
+
+        // list of Hindi matras used to identify
+        Var matrasSet = "अआइईउऊएऐओऔािीुूृेैोौंःँॅ";
+
+        Var posZ = modified.indexOf('Z');
+        While (posZ > 0) {
+            Var leftPos = posZ – 1;
+            // Move left pointer past matras
+            While (leftPos >= 0 && matrasSet.indexOf(modified.charAt(leftPos)) !== -1) {
+                leftPos--;
+            }
+            // Move to start of consonant cluster
+            Var clusterStart = leftPos;
+            While (clusterStart >= 0 && modified.charAt(clusterStart) === '्') {
+                clusterStart -= 2; // skip halant + previous consonant
+            }
+            Var baseStart = Math.max(clusterStart, 0);
+            Var substringToMove = modified.substring(baseStart, posZ);
+            Var replacement = 'र्' + substringToMove;
+            Modified = modified.substring(0, baseStart) + replacement + modified.substring(posZ + 1);
+
+            posZ = modified.indexOf('Z', baseStart + replacement.length);
+        }
+
+        // Fix nukta letters formed wrongly (mostly redundant but safe)
+        Var nuktaPairs = [
+            ['क़', 'क़'], ['ख़', 'ख़'], ['ग़', 'ग़'], ['ज़', 'ज़'], ['ड़', 'ड़'], ['ढ़', 'ढ़'], ['फ़', 'फ़'], ['ऩ', 'ऩ'], ['य़', 'य़'], ['ऱ', 'ऱ']
+        ];
+        nuktaPairs.forEach(function(pair) {
+            modified = modified.replace(new RegExp(pair[0], 'g'), pair[1]);
+        });
+
+        Return modified;
+    }
+
+    // ==== More robust unicodeToKruti ====
+    Function unicodeToKruti(text) {
+        If (!text || !text.trim()) return '';
+
+        Var modified = text;
+
+        // Replace Nukta chars with Kruti Dev versions (normalize)
+        Modified = modified.replace(/त्र्य/g, '«य');
+        Modified = modified.replace(/श्र्य/g, 'Ü‍‍zय');
+        Modified = modified.replace(/क़/g, 'क़');
+        Modified = modified.replace(/ख़/g, 'ख़');
+        Modified = modified.replace(/ग़/g, 'ग़');
+        Modified = modified.replace(/ज़/g, 'ज़');
+        Modified = modified.replace(/ड़/g, 'ड़');
+        Modified = modified.replace(/ढ़/g, 'ढ़');
+        Modified = modified.replace(/ऩ/g, 'ऩ');
+        Modified = modified.replace(/फ़/g, 'फ़');
+        Modified = modified.replace(/य़/g, 'य़');
+        Modified = modified.replace(/ऱ/g, 'ऱ');
+
+        // Move 'ि' to after consonant as 'f' in Kruti text
+        // Use regex to swap positions for all occurrences of (.) + 'ि'
+        // Convert consonant + ि → f + consonant (base + halant handled)
+        // We also take care of conjunct consonants with ् before
+
+        While(/(.)(्?)ि/.test(modified)) {
+            Modified = modified.replace(/(.)(्?)ि/g, function(match, p1, p2) {
+                Return 'f' + p1 + p2;
+            });
+        }
+
+        // Convert 'र्' to 'Z' and move forward past matras
+        Modified += '  '; // append guards to avoid overflow
+        Var matras = "ािीोौं:ँॅ";
+        Var pos_r = modified.indexOf("र्");
+        While (pos_r >= 0) {
+            Var lookahead = pos_r + 2;
+            While (lookahead < modified.length && matras.indexOf(modified.charAt(lookahead)) !== -1) {
+                Lookahead++;
+            }
+            // Also handle the halant and other conjuncts forward
+            While (lookahead + 1 < modified.length && modified.charAt(lookahead + 1) === "्") {
+                Lookahead += 2;
+            }
+            Var replaceStr = modified.substring(pos_r + 2, lookahead);
+            Modified = modified.slice(0, pos_r) + replaceStr + "Z" + modified.slice(lookahead);
+            Pos_r = modified.indexOf("र्");
+        }
+        Modified = modified.trim();
+
+        // Array based replacements for Unicode → Kruti mapping
+        For (var i = 0; i < array_one_u2k.length; i++) {
+            Var search = array_one_u2k[i];
+            Var replace = array_two_u2k[i];
+            Var pattern = search.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            Var regex = new RegExp(pattern, 'g');
+            Modified = modified.replace(regex, replace);
+        }
+
+        // Final replacement fixes for common sequences
+        Modified = modified.replace(/Zksa/g, 'ksZa');
+        Modified = modified.replace(/~ Z/g, 'Z~');
+        Modified = modified.replace(/Zk/g, 'kZ');
+        Modified = modified.replace(/Zh/g, 'Ê');
+
+        Return modified;
+    }
+
+    Function detectFont(text) {
+        If (!text || !text.trim()) return 'unknown';
+        Var uniCount = (text.match(/[\u0900-\u097F]/g) || []).length;
+        Return (uniCount > text.length * 0.2) ? 'unicode' : 'kruti';
+    }
+
+    Function convertHtmlKrutiToUnicode(html) {
+        Return html.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, txt) => {
+            If (tag) return tag;
+            If (!txt || /^\s*$/.test(txt)) return txt || '';
+            If (detectFont(txt) === 'unicode') return txt;
+            Return krutiToUnicode(txt);
+        });
+    }
+
+    Function convertHtmlUnicodeToKruti(html) {
+        Return html.replace(/(<[^>]+>)|([^<]+)/g, (m, tag, txt) => {
+            If (tag) return tag;
+            If (!txt || /^\s*$/.test(txt)) return txt || '';
+            If (detectFont(txt) === 'kruti') return txt;
+            Return unicodeToKruti(txt);
+        });
+    }
+
+    Function buildTableKrutiToUnicode(rows) {
+        Var html = '<table>';
+        Rows.forEach((row, rIndex) => {
+            Var cells = row.split('|').filter(c => c.trim() !== '');
+            Var tag = rIndex === 0 ? 'th' : 'td';
+            Html += '<tr>';
+            Cells.forEach(cell => {
+                Var ct = cell.trim();
+                If (detectFont(ct) !== 'unicode') ct = krutiToUnicode(ct);
+                Html += `<${tag}>${ct}</${tag}>`;
+            });
+            Html += '</tr>';
+        });
+        Html += '</table>';
+        Return html;
+    }
+
+    Function processPlainTextKrutiToUnicode(raw) {
+        Var lines = raw.split('\n'), out = [], i = 0;
+        While (i < lines.length) {
+            Var ln = lines[i];
+            If (ln.indexOf('|') !== -1 && /\|.+\|/.test(ln.trim())) {
+                Var tblRows = [];
+                While (i < lines.length && lines[i].indexOf('|') !== -1) {
+                    // Exclude separator lines (--- etc)
+                    If (!/^[\s|\-:+]+$/.test(lines[i])) tblRows.push(lines[i]);
+                    I++;
+                }
+                If (tblRows.length) {
+                    Out.push(buildTableKrutiToUnicode(tblRows));
+                }
+                Continue;
+            }
+            Var font = detectFont(ln);
+            If (font === 'unicode') {
+                Out.push(ln);
+            } else {
+                Out.push(krutiToUnicode(ln));
+            }
+            I++;
+        }
+        Return out.join('<br>');
+    }
+
+    // UI elements
+    Var krutiEditor = document.getElementById('krutiEditor');
+    Var mangalEditor = document.getElementById('mangalEditor');
+    Var krutiChars = document.getElementById('krutiChars');
+    Var krutiWords = document.getElementById('krutiWords');
+    Var mangalChars = document.getElementById('mangalChars');
+    Var mangalWords = document.getElementById('mangalWords');
+    Var mangalTables = document.getElementById('mangalTables');
+    Var fileInput = document.getElementById('fileInput');
+    Var statusDot = document.getElementById('statusDot');
+    Var statusText = document.getElementById('statusText');
+    Var fileInfo = document.getElementById('fileInfo');
+    Var loadingEl = document.getElementById('loadingEl');
+    Var loadMsg = document.getElementById('loadMsg');
+    Var notifEl = document.getElementById('notifEl');
+
+    // Undo stack for both editors
+    Var undoStackMangal = [];
+    Var undoStackKruti = [];
+    Var currentFileName = 'converted';
+
+    Function showLoading(show, msg) {
+        loadingEl.classList.toggle('show', show);
+        if (msg) loadMsg.textContent = msg;
+    }
+
+    Function setStatus(msg, state) {
+        statusText.textContent = msg;
+        statusDot.className = 'status-dot';
+        if (state === 'ok') statusDot.classList.add('ok');
+        else if (state === 'warn') statusDot.classList.add('warn');
+    }
+
+    Var notifTimer;
+    Function notify(msg, type) {
+        Var icon = type === 'ok' ? '✓' : type === 'err' ? '✕' : 'ℹ';
+        notifEl.textContent = icon + ' ' + msg;
+        notifEl.className = 'notif ' + (type || 'info') + ' show';
+        clearTimeout(notifTimer);
+        notifTimer = setTimeout(() => notifEl.classList.remove('show'), 3000);
+    }
+
+    Function updateKrutiStats() {
+        Var t = krutiEditor.innerText || '';
+        krutiChars.textContent = t.length;
+        krutiWords.textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+    }
+
+    Function updateMangalStats() {
+        Var t = mangalEditor.innerText || '';
+        mangalChars.textContent = t.length;
+        mangalWords.textContent = t.trim() ? t.trim().split(/\s+/).length : 0;
+        mangalTables.textContent = mangalEditor.querySelectorAll('table').length;
+    }
+
+    Function downloadBlob(blob, name) {
+        Var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    }
+
+    Function runConversionKrutiToUnicode(rawText, extraHtml) {
+        setStatus('कन्वर्ट हो रहा है...', 'warn');
+        showLoading(true, 'कन्वर्ट हो रहा है...');
+        setTimeout(() => {
+            try {
+                var result = '';
+                if (extraHtml) {
+                    var mainHtml = (detectFont(rawText) !== 'unicode') ?
+                        processPlainTextKrutiToUnicode(rawText) :
+                        rawText.replace(/\n/g, '<br>');
+                    result = mainHtml + (extraHtml ? '<br>' + extraHtml : '');
+                } else if (/<table|<tr|<td|<th/i.test(rawText)) {
+                    Result = convertHtmlKrutiToUnicode(rawText);
+                } else {
+                    Result = processPlainTextKrutiToUnicode(rawText);
+                }
+
+                undoStackMangal.push(mangalEditor.innerHTML);
+                if (undoStackMangal.length > 30) undoStackMangal.shift();
+
+                mangalEditor.innerHTML = result;
+                mangalEditor.style.fontFamily = "'Noto Sans Devanagari', Mangal, sans-serif";
+                updateMangalStats();
+                setStatus('कन्वर्ट पूरा ✓ (Kruti → Mangal)', 'ok');
+                notify('✓ Mangal Unicode में परिवर्तित!', 'ok');
+                showLoading(false);
+            } catch(e) {
+                Notify('त्रुटि: ' + e.message, 'err');
+                setStatus('त्रुटि', 'warn');
+                showLoading(false);
+            }
+        }, 50);
+    }
+
+    Function runConversionUnicodeToKruti(rawText) {
+        setStatus('कन्वर्ट हो रहा है (Unicode → Kruti)...', 'warn');
+        showLoading(true, 'कन्वर्ट हो रहा है (Unicode → Kruti)...');
+        setTimeout(() => {
+            try {
+                var result = '';
+                if (/<table|<tr|<td|<th/i.test(rawText)) {
+                    result = convertHtmlUnicodeToKruti(rawText);
+                } else {
+                    Var lines = rawText.split('\n');
+                    Var out = [];
+                    For (var i = 0; i < lines.length; i++) {
+                        Var ln = lines[i];
+                        If (detectFont(ln) === 'kruti') out.push(ln);
+                        Else out.push(unicodeToKruti(ln));
+                    }
+                    Result = out.join('<br>');
+                }
+
+                undoStackKruti.push(krutiEditor.innerHTML);
+                if (undoStackKruti.length > 30) undoStackKruti.shift();
+
+                krutiEditor.innerHTML = result;
+                krutiEditor.style.fontFamily = "'Noto Sans Devanagari', 'Kruti Dev 010', sans-serif";
+                updateKrutiStats();
+                setStatus('कन्वर्ट पूरा ✓ (Mangal → Kruti)', 'ok');
+                notify('✓ Kruti Dev में परिवर्तित!', 'ok');
+                showLoading(false);
+            } catch(e) {
+                Notify('त्रुटि: ' + e.message, 'err');
+                setStatus('त्रुटि', 'warn');
+                showLoading(false);
+            }
+        }, 50);
+    }
+
+    Function readTextFile(file) {
+        Return new Promise(function(res, rej) {
+            Var reader = new FileReader();
+            Reader.onerror = () => rej(new Error("Failed to read file"));
+            Reader.onload = function(e) {
+                Try {
+                    Var buf = e.target.result;
+                    Var bytes = new Uint8Array(buf);
+                    Var decoderWin1252 = new TextDecoder('windows-1252', {fatal: false});
+                    Var decoderUtf8 = new TextDecoder('utf-8', {fatal: false});
+                    Var win = decoderWin1252.decode(bytes);
+                    Var utf = decoderUtf8.decode(bytes);
+                    Function score(s) {
+                        Return (s.match(/[dkf\[qwhslmnprtbcgxoujHBVMNF;+><=~'"&$#]/g) || []).length;
+                    }
+                    Res((score(win) > score(utf) + 5) ? win : utf);
+                } catch(e) {
+                    // fallback to txt raw
+                    Res(new TextDecoder().decode(bytes));
+                }
+            };
+            Reader.readAsArrayBuffer(file);
+        });
+    }
+
+    // Better getElementsByTagName without NS wildcards  
+    Function getElementsByTagNameAllNS(doc, tagName) {
+        Var elements = [];
+        ['http://schemas.openxmlformats.org/wordprocessingml/2006/main',
+         ''].forEach(ns => {
+            Var found = ns ? doc.getElementsByTagNameNS(ns, tagName) : doc.getElementsByTagName(tagName);
+            For (var i=0; i<found.length; i++) elements.push(found[i]);
+        });
+        Return elements;
+    }
+
+    Function readDocx(file) {
+        Return JSZip.loadAsync(file).then(zip => {
+            Var xf = zip.file('word/document.xml');
+            If (!xf) throw new Error('document.xml नहीं मिला');
+            Return xf.async('string');
+        }).then(xml => {
+            Var parser = new DOMParser();
+            Var doc = parser.parseFromString(xml, 'application/xml');
+            // Getting paragraphs without NS wildcard (fall back)
+            Var paras = getElementsByTagNameAllNS(doc, 'p');
+            Var lines = [];
+            Paras.forEach ? paras.forEach(p => {
+                Let pt = '';
+                Var runs = getElementsByTagNameAllNS(p, 'r');
+                Runs.forEach ? runs.forEach(r => {
+                    Var texts = getElementsByTagNameAllNS(r, 't');
+                    Texts.forEach ? texts.forEach(t => pt += t.textContent) : [];
+                }) : [];
+                If (pt.trim()) lines.push(pt);
+            }) : [];
+
+            Var tblHtml = '';
+            Var tables = getElementsByTagNameAllNS(doc, 'tbl');
+            Tables.forEach ? tables.forEach(tbl => {
+                tblHtml += '<table>';
+                var rows = getElementsByTagNameAllNS(tbl, 'tr');
+                rows.forEach ? rows.forEach(tr => {
+                    tblHtml += '<tr>';
+                    var cells = getElementsByTagNameAllNS(tr, 'tc');
+                    cells.forEach ? cells.forEach(tc => {
+                        var ctext = '';
+                        var cts = getElementsByTagNameAllNS(tc, 't');
+                        cts.forEach ? cts.forEach(ct => ctext += ct.textContent) : [];
+                        var tagCell = tr === tables[0].getElementsByTagName('tr')[0] ? 'th' : 'td';
+                        var conv = (detectFont(ctext) !== 'unicode') ? krutiToUnicode(ctext) : ctext;
+                        tblHtml += `<${tagCell}>${conv}</${tagCell}>`;
+                    }) : [];
+                    tblHtml += '</tr>';
+                }) : [];
+                tblHtml += '</table>';
+            }) : [];
+            Return { text: lines.join('\n'), tableHtml: tblHtml };
+        });
+    }
+
+    Function handleFile(file) {
+        showLoading(true, 'पढ़ा जा रहा है: ' + file.name);
+        setStatus('फ़ाइल पढ़ रहे हैं...', 'warn');
+        currentFileName = file.name.replace(/\.[^.]+$/, '');
+        fileInfo.textContent = file.name;
+        var promise = /\.docx?$/i.test(file.name) ?
+            readDocx(file) :
+            readTextFile(file).then(t => ({ text: t, tableHtml: '' }));
+        promise.then(res => {
+            var raw = res.text || '';
+            var extra = res.tableHtml || '';
+            krutiEditor.innerHTML = raw.replace(/\n/g, '<br>');
+            updateKrutiStats();
+            runConversionKrutiToUnicode(raw, extra);
+        }).catch(err => {
+            showLoading(false);
+            notify('त्रुटि: ' + err.message, 'err');
+            setStatus('फ़ाइल त्रुटि', 'warn');
+        });
+    }
+
+    // Event listeners remain mostly unchanged
+    Document.getElementById('fileBtn').addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files.length) {
+            handleFile(fileInput.files[0]);
+            fileInput.value = '';
+        }
+    });
+
+    Var krutiPane = document.getElementById('krutiPane');
+    krutiPane.addEventListener('dragover', e => {
+        e.preventDefault();
+        krutiPane.classList.add('over');
+    });
+    krutiPane.addEventListener('dragleave', () => krutiPane.classList.remove('over'));
+    krutiPane.addEventListener('drop', e => {
+        e.preventDefault();
+        krutiPane.classList.remove('over');
+        if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+    });
+
+    Document.getElementById('convertBtn').addEventListener('click', () => {
+        Var t = krutiEditor.innerText || '';
+        If (t.trim()) runConversionKrutiToUnicode(t, '');
+        Else notify('Kruti टेक्स्ट डालें', 'err');
+    });
+
+    Document.getElementById('toKrutiBtn').addEventListener('click', () => {
+        Var t = mangalEditor.innerText || '';
+        If (t.trim()) runConversionUnicodeToKruti(t);
+        Else notify('Mangal टेक्स्ट डालें', 'err');
+    });
+
+    krutiEditor.addEventListener('paste', () => {
+        setTimeout(() => {
+            updateKrutiStats();
+            var t = krutiEditor.innerText || '';
+            if (t.trim()) runConversionKrutiToUnicode(t, '');
+        }, 100);
+    });
+    krutiEditor.addEventListener('input', updateKrutiStats);
+    mangalEditor.addEventListener('input', updateMangalStats);
+
+    document.getElementById('pasteBtn').addEventListener('click', () => {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+            navigator.clipboard.readText().then(t => {
+                if (t) {
+                    krutiEditor.innerHTML = t.replace(/\n/g, '<br>');
+                    updateKrutiStats();
+                    runConversionKrutiToUnicode(t, '');
+                }
+            }).catch(() => notify('Ctrl+V से पेस्ट करें', 'info'));
+        } else {
+            Notify('Kruti बॉक्स में Ctrl+V करें', 'info');
+        }
+    });
+
+    Document.getElementById('sampleBtn').addEventListener('click', () => {
+        Var sample = 
+            "dk;kZy; Fkkukf/kdkjh iqfyl Fkkuk ljnkj\u2019kgj ftyk p:w\n\nlsok esa] Jheku miq[k.M eftLVªV egksn;\nljnkj\u2019kgj ftyk p:wA\n\nfo\"k;%& /kkjk 135]126(2) chU,u,l,l\n\negksn;\ngkykr bl izdkj ls fuosnu gS fd fnukad 13-04-2026 dks Jh izgyky lkj.k iq= ds\u2019kjk jke tkfr tkV mez 40 lky fuoklh m<Mlj yks<Msjk rglhy ljnkj\u2019kgj ftyk p:w us jfirt nj[kkLr nhA\n\nlsdkj cukeA- 1 egkohj flag iq= jkepUn tkfr tkV fuoklh ckyjklj\n2 Hkxokuh nsoh iRuh egkohj flag tkfr tkV fuoklh ckyjklj\n\n| dze la- | uke | irk | tkfr |\n|---------|------|------|------|\n| 1 | egkohj flag | ckyjklj | tkV |\n| 2 | Hkxokuh nsoh | ckyjklj | tkV |";
+        krutiEditor.innerHTML = sample.replace(/\n/g, '<br>');
+        updateKrutiStats();
+        runConversionKrutiToUnicode(sample, '');
+    });
+
+    Document.getElementById('clearBtn').addEventListener('click', () => {
+        krutiEditor.innerHTML = '';
+        mangalEditor.innerHTML = '';
+        fileInfo.textContent = '';
+        updateKrutiStats();
+        updateMangalStats();
+        setStatus('तैयार', 'ok');
+        notify('साफ़ कर दिया गया', 'info');
+    });
+
+    Document.getElementById('undoBtn').addEventListener('click', () => {
+        If (undoStackMangal.length) {
+            mangalEditor.innerHTML = undoStackMangal.pop();
+            updateMangalStats();
+            notify('Undo ✓', 'info');
+        } else notify('Undo के लिए कुछ नहीं', 'info');
+    });
+
+    Document.getElementById('copyMangalBtn').addEventListener('click', () => {
+        Var t = mangalEditor.innerText || '';
+        If (!t.trim()) { notify('कॉपी करने के लिए कुछ नहीं', 'err'); return; }
+        Navigator.clipboard.writeText(t).then(() => notify('✓ मंगल कॉपी हो गया!', 'ok'))
+        .catch(() => notify('कॉपी विफल', 'err'));
+    });
+
+    Document.getElementById('copyMangalBtn2').addEventListener('click', () => {
+        Var t = mangalEditor.innerText || '';
+        If (!t.trim()) { notify('कॉपी करने के लिए कुछ नहीं', 'err'); return; }
+        Navigator.clipboard.writeText(t).then(() => notify('✓ मंगल कॉपी हो गया!', 'ok'))
+        .catch(() => notify('कॉपी विफल', 'err'));
+    });
+
+    Document.getElementById('copyKrutiBtn').addEventListener('click', () => {
+        Var t = krutiEditor.innerText || '';
+        If (!t.trim()) { notify('कॉपी करने के लिए कुछ नहीं', 'err'); return; }
+        Navigator.clipboard.writeText(t).then(() => notify('✓ क्रुति कॉपी हो गया!', 'ok'))
+        .catch(() => notify('कॉपी विफल', 'err'));
+    });
+
+    Document.getElementById('downloadBtn').addEventListener('click', () => {
+        Var t = mangalEditor.innerText || '';
+        If (!t.trim()) { notify('डाउनलोड कंटेंट नहीं', 'err'); return; }
+        downloadBlob(new Blob(['\uFEFF' + t], { type: 'text/plain;charset=utf-8' }),
+            currentFileName + '_mangal.txt');
+        notify('✓ .txt डाउनलोड हुआ', 'ok');
+    });
+
+    Document.getElementById('printBtn').addEventListener('click', () => {
+        Var ot = document.title;
+        Document.title = currentFileName + '_Mangal';
+        Window.print();
+        Document.title = ot;
+    });
+
+    Document.getElementById('swapBtn').addEventListener('click', () => {
+        Var mangalContent = mangalEditor.innerHTML;
+        Var krutiContent = krutiEditor.innerHTML;
+        mangalEditor.innerHTML = krutiContent;
+        krutiEditor.innerHTML = mangalContent;
+        updateKrutiStats();
+        updateMangalStats();
+        notify('⇄ स्वैप हो गया!', 'info');
+    });
+
+    Document.getElementById('boldBtn').addEventListener('click', () => {
+        mangalEditor.focus();
+        document.execCommand('bold');
+    });
+    Document.getElementById('underlineBtn').addEventListener('click', () => {
+        mangalEditor.focus();
+        document.execCommand('underline');
+    });
+
+    Window.addEventListener('keydown', e => {
+        If ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+            e.preventDefault();
+            var t = krutiEditor.innerText || '';
+            if (t.trim()) runConversionKrutiToUnicode(t, '');
+        }
+        If ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+            e.preventDefault();
+            var t2 = mangalEditor.innerText || '';
+            if (t2.trim()) downloadBlob(new Blob(['\uFEFF' + t2], { type: 'text/plain;charset=utf-8' }),
+                currentFileName + '_mangal.txt');
+        }
+    });
+
+    setStatus('तैयार – फ़ाइल चुनें या Kruti टेक्स्ट पेस्ट करें (द्विदिशीय कन्वर्ज़न)', 'ok');
+  })();
+</script>
+
+</body>
+</html>
