@@ -1,0 +1,127 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RK DevLys Converter PRO</title>
+
+<style>
+body{font-family:'Noto Sans Devanagari',sans-serif;background:#0f172a;color:#fff;margin:0}
+header{padding:15px;text-align:center;background:#1e293b;font-weight:bold}
+.container{padding:15px}
+textarea{width:100%;height:200px;margin:10px 0;padding:12px;border-radius:10px;border:none;font-size:16px}
+button{padding:10px;border:none;border-radius:8px;margin:5px;cursor:pointer;font-weight:bold}
+.convert{background:#22c55e}
+.clear{background:#ef4444}
+.copy{background:#3b82f6}
+</style>
+</head>
+
+<body>
+
+<header>⚡ RK DevLys / Kruti Dev → Unicode PRO</header>
+
+<div class="container">
+<textarea id="inputText" placeholder="DevLys / Kruti text यहाँ डालो..."></textarea>
+
+<button class="convert" onclick="convert()">Convert</button>
+<button class="clear" onclick="clr()">Clear</button>
+<button class="copy" onclick="cpy()">Copy</button>
+
+<textarea id="outputText" placeholder="Output यहाँ मिलेगा..."></textarea>
+</div>
+
+<script>
+
+// ===============================
+// 🔥 HEAVY ENGINE
+// ===============================
+
+function convert() {
+let text = document.getElementById("inputText").value;
+
+// ---------- PRE PROCESS ----------
+text = text.replace(/\r\n/g,"\n");
+
+// ---------- MAIN MAPPING ----------
+let map = [
+
+["vk","आ"],["v","अ"],
+["bZ","ई"],["b","इ"],
+["m","उ"],["M","ऊ"],
+[",","ए"],[",s","ऐ"],
+["ks","ो"],["k","ा"],["h","ी"],["f","ि"],["q","ु"],["w","ू"],["s","े"],["S","ै"],
+
+// consonants
+["d","क"],["[k","ख"],["x","ग"],["?k","घ"],
+["p","च"],["Pk","छ"],["t","ज"],["Tk","झ"],
+["V","ट"],["B","ठ"],["M","ड"],["<","ढ"],
+[".k","ण"],["r","त"],["F","थ"],["n","द"],
+["/k","ध"],["u","न"],["i","प"],["Q","फ"],
+["c","ब"],["H","भ"],["e","म"],[";","य"],
+["j","र"],["l","ल"],["o","व"],["'k","श"],
+["\"","ष"],["L","स"],["g","ह"],
+
+// combos (important)
+["iz","प्र"],["Iq","पु"],["iq","पु"],
+["fo","वि"],["fn","दि"],["fl","सि"],
+["fj","रि"],["fjk","रिया"],["dj","कर"],
+["dk","का"],["dh","की"],["ds","के"],
+["esa","में"],["vkSj","और"],["lEiw.kZ","सम्पूर्ण"],
+["'kk","शा"],["'k","श"],
+
+// nukta & special
+["+","़"],["~","्"],
+
+// numbers
+["0","०"],["1","१"],["2","२"],["3","३"],
+["4","४"],["5","५"],["6","६"],
+["7","७"],["8","८"],["9","९"]
+
+];
+
+// ---------- APPLY MAP ----------
+for(let i=0;i<map.length;i++){
+let reg=new RegExp(map[i][0],"g");
+text=text.replace(reg,map[i][1]);
+}
+
+// ---------- MATRA FIX (ि before) ----------
+text = text.replace(/ि([क-ह])/g,"$1ि");
+
+// ---------- O MATRA FIX ----------
+text = text.replace(/ाे/g,"ो");
+
+// ---------- AU MATRA FIX ----------
+text = text.replace(/ाै/g,"ौ");
+
+// ---------- HALF LETTER CLEAN ----------
+text = text.replace(/्ा/g,"ा");
+
+// ---------- CLEAN SPACES ----------
+text = text.replace(/\s+/g," ");
+
+// ---------- OUTPUT ----------
+document.getElementById("outputText").value = text;
+}
+
+// ===============================
+// EXTRA FUNCTIONS
+// ===============================
+
+function clr(){
+document.getElementById("inputText").value="";
+document.getElementById("outputText").value="";
+}
+
+function cpy(){
+let t=document.getElementById("outputText");
+t.select();
+document.execCommand("copy");
+alert("Copied!");
+}
+
+</script>
+
+</body>
+</html>
